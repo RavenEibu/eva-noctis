@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.7.0
+- The kitty and Ghostty themes now ship inside the extension (`terminals/` folder), together with `terminals/install.sh`, an installer that copies them and can activate a dark/light pair (`--apply`).
+
 ## 0.6.1
 - Preview images are now hosted in the GitHub repository so they display on the Marketplace and in the extension panel.
 - Added the repository, issues and homepage links.

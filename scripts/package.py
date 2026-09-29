@@ -4,7 +4,10 @@ import json, zipfile, os
 from xml.sax.saxutils import escape as esc
 pkg = json.load(open('package.json'))
 files = ['package.json', 'README.md', 'CHANGELOG.md', 'LICENSE.txt', 'NOCTIS-LICENSE.md', 'icon.png'] + [f'themes/{f}' for f in sorted(os.listdir('themes'))] + [f'images/{f}' for f in sorted(os.listdir('images'))]
+term = ['terminals/install.sh'] + [f'terminals/{t}/themes/{f}' for t in ('kitty','ghostty') for f in sorted(os.listdir(f'terminals/{t}/themes'))]
+files += term
 ct = '<?xml version="1.0" encoding="utf-8"?>\n<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension=".json" ContentType="application/json"/><Default Extension=".md" ContentType="text/markdown"/><Default Extension=".png" ContentType="image/png"/><Default Extension=".txt" ContentType="text/plain"/><Default Extension=".vsixmanifest" ContentType="text/xml"/></Types>'
+ct = ct.replace('</Types>', ''.join(f'<Override PartName="/extension/{f}" ContentType="text/plain"/>' for f in term) + '</Types>')
 repo = pkg.get('repository', {}).get('url', '').removesuffix('.git')
 links = ''
 if repo:

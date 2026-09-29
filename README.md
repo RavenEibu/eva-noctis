@@ -105,9 +105,17 @@ Syntax colors can be adjusted the same way with `editor.tokenColorCustomizations
 
 ## Terminal themes (kitty and Ghostty)
 
-The same palettes are available as [kitty](https://sw.kovidgoyal.net/kitty/) and [Ghostty](https://ghostty.org/) themes in the [`terminals`](terminals) folder of the repository. Each one defines the background, foreground, cursor, selection, tabs (kitty) and the 16 ANSI colors, so your terminal matches your editor.
+The same palettes are available as [kitty](https://sw.kovidgoyal.net/kitty/) and [Ghostty](https://ghostty.org/) themes in the [`terminals`](terminals) folder of the repository (also bundled inside the extension). Each one defines the background, foreground, cursor, selection, tabs (kitty) and the 16 ANSI colors, so your terminal matches your editor.
 
-**kitty**
+**One-line installer** (Linux and macOS). It finds kitty and/or Ghostty, copies every theme and, with `--apply`, activates EVA-01 for dark mode and EVA-00 for light mode:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/terminals/install.sh | bash -s -- --apply
+```
+
+Options: `--dark EVA-13 --light EVA-01-Light` to choose the pair, `--kitty` / `--ghostty` for a single terminal, `--list` to see the themes and `--uninstall` to remove them. Existing configs are backed up as `*.pre-eva-noctis`. The same script is bundled with the extension, so you can also run it from the install folder: `bash ~/.vscode/extensions/raveneibu.eva-noctis-*/terminals/install.sh --apply`.
+
+**Manual install: kitty**
 
 ```bash
 mkdir -p ~/.config/kitty/themes
@@ -116,7 +124,7 @@ cp terminals/kitty/themes/*.conf ~/.config/kitty/themes/
 
 Pick one with `kitten themes` (they appear under *Custom*), or add a line such as `include themes/Noctis-EVA-01.conf` to `kitty.conf`. To follow the system appearance, copy a dark and a light theme to `~/.config/kitty/dark-theme.auto.conf` and `light-theme.auto.conf`.
 
-**Ghostty**
+**Manual install: Ghostty**
 
 ```bash
 mkdir -p ~/.config/ghostty/themes
