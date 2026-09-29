@@ -1,6 +1,6 @@
 # EVA Noctis
 
-Twenty-three vivid color themes inspired by the Evangelion units of the *Rebuild* films, the MAGI supercomputer interface, NERV, SEELE, the A.T. Field, Instrumentality, Terminal Dogma, the Angels and light counterparts of the main units, built on top of the excellent [Noctis](https://github.com/liviuschera/noctis) theme family by Liviu Schera.
+Twenty-eight vivid color themes inspired by the Evangelion units of the *Rebuild* films, the MAGI supercomputer interface, NERV, SEELE, the A.T. Field, Instrumentality, Terminal Dogma, the Angels and light counterparts of the main units, built on top of the excellent [Noctis](https://github.com/liviuschera/noctis) theme family by Liviu Schera.
 
 Noctis is loved for its carefully balanced syntax highlighting and clear diagnostics. EVA Noctis keeps that structure and swaps in bold, saturated palettes: neon greens against deep violets, warning-sign oranges over near-black reds, and crisp sky blues for a daylight option.
 
@@ -31,8 +31,13 @@ Noctis is loved for its carefully balanced syntax highlighting and clear diagnos
 | **Noctis (Sachiel)** | Dark | Slate, bone and a red core | `#0e1218` | `#e6dcc8` | `#ff3030` |
 | **Noctis (NERV High Contrast)** | High contrast dark | Pure black, white and NERV red | `#000000` | `#ffffff` | `#ffffff` |
 | **Noctis (EVA Mark.06 High Contrast)** | High contrast light | Pure white, black and vermilion | `#ffffff` | `#000000` | `#ff3d00` |
+| **Noctis (EVA-01 OLED)** | OLED dark | Pure black with violet, toxic green and orange | `#000000` | `#e4dcf5` | `#39ff14` |
+| **Noctis (MAGI OLED)** | OLED dark | Pure black with MAGI amber, alert red and approval green | `#000000` | `#ffc27a` | `#ffb000` |
+| **Noctis (EVA-02 OLED)** | OLED dark | Pure black with red, orange and eye yellow | `#000000` | `#f5e0dc` | `#ffe100` |
+| **Noctis (EVA-00 OLED)** | OLED dark | Pure black with EVA-00 sky blue and orange | `#000000` | `#d8ecfb` | `#ff8a1f` |
+| **Noctis (Lilith OLED)** | OLED dark | Pure black, bone white and blood red | `#000000` | `#eae4dc` | `#f2ead8` |
 
-12 dark themes, 9 light themes and 2 high contrast themes, so you always have a match for your system appearance.
+12 dark themes, 9 light themes, 2 high contrast themes and 5 OLED themes, so you always have a match for your system appearance.
 
 ## Preview
 
@@ -53,7 +58,13 @@ Each preview shows the editor, explorer, diagnostics, status bar and integrated 
 | ![Noctis (Geofront)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/geofront.png) | ![Noctis (Tabris)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/tabris.png) |
 | ![Noctis (Terminal Dogma)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/terminal-dogma.png) | ![Noctis (Ramiel)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/ramiel.png) |
 | ![Noctis (Sachiel)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/sachiel.png) | ![Noctis (NERV High Contrast)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/nerv-hc.png) |
-| ![Noctis (EVA Mark.06 High Contrast)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/eva-mark06-hc.png) |  |
+| ![Noctis (EVA Mark.06 High Contrast)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/eva-mark06-hc.png) | ![Noctis (EVA-01 OLED)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/eva-01-oled.png) |
+| ![Noctis (MAGI OLED)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/magi-oled.png) | ![Noctis (EVA-02 OLED)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/eva-02-oled.png) |
+| ![Noctis (EVA-00 OLED)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/eva-00-oled.png) | ![Noctis (Lilith OLED)](https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/images/lilith-oled.png) |
+
+## OLED themes
+
+The five `OLED` themes use a true `#000000` background for the editor, sidebar, tabs, panel and integrated terminal, so those pixels are switched off on OLED screens. Thin dark separators keep the layout readable, and the text is slightly off-white (or amber/bone) to avoid halos. In kitty and Ghostty, set `background_opacity 1.0` / `background-opacity = 1` with these themes: translucent black loses the point.
 
 ## High contrast themes
 

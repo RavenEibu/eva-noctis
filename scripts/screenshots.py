@@ -74,7 +74,8 @@ def page(t):
 <div class=panel>{term}</div><div class=st><span>&#9679; main &nbsp; 1 error &nbsp; 1 warning</span><span>{html.escape(name)} &nbsp; TypeScript React</span></div></div>'''
 
 ORDER = ["eva-00", "eva-01", "eva-01-berserk", "eva-01-light", "eva-02", "eva-02-light", "eva-03", "eva-08", "eva-08-light", "eva-13", "eva-mark06", "magi", "nerv", "seele",
-         "at-field", "instrumentality", "geofront", "tabris", "terminal-dogma", "ramiel", "sachiel", "nerv-hc", "eva-mark06-hc"]
+         "at-field", "instrumentality", "geofront", "tabris", "terminal-dogma", "ramiel", "sachiel", "nerv-hc", "eva-mark06-hc",
+         "eva-01-oled", "magi-oled", "eva-02-oled", "eva-00-oled", "lilith-oled"]
 
 def overview(cols=4, w=640, h=373, pad=12):
     from PIL import Image

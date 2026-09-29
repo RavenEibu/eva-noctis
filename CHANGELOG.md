@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.0
+- Five new OLED themes with a true `#000000` background: **Noctis (EVA-01 OLED)**, **Noctis (MAGI OLED)**, **Noctis (EVA-02 OLED)**, **Noctis (EVA-00 OLED)** and **Noctis (Lilith OLED)**, each with matching kitty and Ghostty themes.
+
 ## 0.7.0
 - The kitty and Ghostty themes now ship inside the extension (`terminals/` folder), together with `terminals/install.sh`, an interactive installer that asks for your terminal (kitty, Ghostty or both), can activate a dark/light pair and offers to uninstall when the themes are already installed.
 

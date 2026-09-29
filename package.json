@@ -1,8 +1,8 @@
 {
   "name": "eva-noctis",
   "displayName": "EVA Noctis",
-  "description": "Twenty-three vivid themes inspired by Rebuild of Evangelion, the MAGI system, NERV, SEELE, the A.T. Field, Instrumentality, Terminal Dogma, the Angels and the berserk EVA-01, with high contrast variants, built on the Noctis theme family.",
-  "version": "0.7.0",
+  "description": "Twenty-eight vivid themes inspired by Rebuild of Evangelion, the MAGI system, NERV, SEELE, the A.T. Field, Instrumentality, Terminal Dogma, the Angels and the berserk EVA-01, with high contrast and true-black OLED variants, built on the Noctis theme family.",
+  "version": "0.8.0",
   "publisher": "RavenEibu",
   "license": "MIT",
   "engines": {
@@ -163,6 +163,31 @@
         "label": "Noctis (Tabris)",
         "uiTheme": "vs",
         "path": "./themes/tabris.json"
+      },
+      {
+        "label": "Noctis (EVA-01 OLED)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/eva-01-oled.json"
+      },
+      {
+        "label": "Noctis (MAGI OLED)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/magi-oled.json"
+      },
+      {
+        "label": "Noctis (EVA-02 OLED)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/eva-02-oled.json"
+      },
+      {
+        "label": "Noctis (EVA-00 OLED)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/eva-00-oled.json"
+      },
+      {
+        "label": "Noctis (Lilith OLED)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/lilith-oled.json"
       }
     ]
   },

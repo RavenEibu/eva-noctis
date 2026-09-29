@@ -35,7 +35,7 @@ def make_transform(P):
     light = P["type"] == "light"
     sem = SEM[P["base"]]
     tok = {sem[k].lower(): v for k, v in P["tokens"].items()}
-    bh, bs, _ = to_hls(P["bg"])
+    bh, bs, _ = to_hls(P.get("tint", P["bg"]))
     ah, as_, _ = to_hls(P["accent"])
     th, ts, _ = to_hls(P["text"])
     surf_k = bs / (0.9 if light else 0.78)
@@ -254,6 +254,30 @@ P["eva-mark06-hc"] = copy.deepcopy(P["eva-mark06"]); P["eva-mark06-hc"].update(n
     text="#000000", status="#000000", select="#6a3df088")
 P["eva-mark06-hc"]["tokens"]["text"] = "#000000"
 
+# ---------- Variantes OLED: fondo #000000 real (paneles, pestanas y terminal) con bordes finos ----------
+P["eva-01-oled"] = copy.deepcopy(P["eva-01"]); P["eva-01-oled"].update(name="Noctis (EVA-01 OLED)", slug="Noctis-EVA-01-OLED", oled=True, tint=P["eva-01"]["bg"],
+    bg="#000000", side="#000000", text="#e4dcf5", select="#7b2cff77")
+P["eva-01-oled"]["tokens"]["text"] = "#e4dcf5"
+P["magi-oled"] = copy.deepcopy(P["magi"]); P["magi-oled"].update(name="Noctis (MAGI OLED)", slug="Noctis-MAGI-OLED", oled=True, tint=P["magi"]["bg"],
+    bg="#000000", side="#000000", select="#ff6a0066")
+P["eva-02-oled"] = copy.deepcopy(P["eva-02"]); P["eva-02-oled"].update(name="Noctis (EVA-02 OLED)", slug="Noctis-EVA-02-OLED", oled=True, tint=P["eva-02"]["bg"],
+    bg="#000000", side="#000000", text="#f5e0dc", select="#ff1f3d66")
+P["eva-02-oled"]["tokens"]["text"] = "#f5e0dc"
+# EVA-00 OLED: el celeste y el naranja del EVA-00, pero sobre negro
+P["eva-00-oled"] = dict(name="Noctis (EVA-00 OLED)", type="dark", base="noctis", bg="#000000", side="#000000", text="#d8ecfb", slug="Noctis-EVA-00-OLED",
+    oled=True, tint="#061826", accent="#1fb6ff", accent2="#ff8a1f", status="#0a5f9e", status_fg="#ffffff", select="#1fb6ff55",
+    tokens=tokens("#5f86a8", "#d8ecfb", "#ff9a3d", "#8fd6ff", "#ff8a5c", "#ffb02e", "#ff6b3d", "#3df0c8", "#22c9a4",
+                  "#7fa8ff", "#1fb6ff", "#6fe0ff", "#5ea8ff", "#ff3b4d"),
+    ansi=["#0a1520", "#ff4d5e", "#3df0a8", "#ffb02e", "#3d9bff", "#c58cff", "#1fd6ff", "#d4e6f5",
+          "#38506a", "#ff7a86", "#7dffc8", "#ffd070", "#7dbcff", "#dcb4ff", "#7be8ff", "#ffffff"])
+# Lilith OLED: blanco hueso y rojo sangre sobre negro
+P["lilith-oled"] = dict(name="Noctis (Lilith OLED)", type="dark", base="noctis", bg="#000000", side="#000000", text="#eae4dc", slug="Noctis-Lilith-OLED",
+    oled=True, tint="#0c0606", accent="#d4142a", accent2="#f2ead8", status="#8f0d1c", status_fg="#ffffff", select="#d4142a55",
+    tokens=tokens("#7a6f66", "#eae4dc", "#ff2d3f", "#e8d8b8", "#c4573f", "#e0a25a", "#ff4d3a", "#a8d8a0", "#8cc88a",
+                  "#e0b8ff", "#8fc0ff", "#7fd8e0", "#a8b8ff", "#ff1f3d"),
+    ansi=["#140c0c", "#ff2d3f", "#a8d8a0", "#e0a25a", "#6fa0e8", "#d89ad8", "#7fd8e0", "#e0d8cc",
+          "#4a3f3a", "#ff6470", "#c8f0c0", "#f5c688", "#9cc0ff", "#ecbcec", "#a8eef5", "#ffffff"])
+
 def lum(h):
     c = [int(h[i:i+2], 16) / 255 for i in (1, 3, 5)]
     c = [x / 12.92 if x <= .03928 else ((x + .055) / 1.055) ** 2.4 for x in c]
@@ -296,6 +320,18 @@ def build(key, p):
         "editorWarning.foreground": ensure(p["tokens"]["constant"], p["bg"], mn, light),
         "editorError.foreground": ensure(p["tokens"]["invalid"], p["bg"], mn, light),
     })
+    if p.get("oled"):
+        edge = "#1e1e1e"
+        for k in ("panel.background", "editorGroupHeader.tabsBackground", "tab.inactiveBackground", "tab.activeBackground", "tab.unfocusedActiveBackground",
+                  "breadcrumb.background", "sideBarSectionHeader.background", "terminal.background", "editorGroup.emptyBackground",
+                  "activityBar.background", "sideBar.background", "titleBar.activeBackground", "titleBar.inactiveBackground", "editor.background"):
+            c[k] = "#000000"
+        for k in ("sideBar.border", "panel.border", "editorGroup.border", "tab.border", "activityBar.border", "titleBar.border",
+                  "editorGroupHeader.tabsBorder", "sideBarSectionHeader.border", "statusBar.border", "breadcrumb.border"):
+            c[k] = edge
+        c["editor.lineHighlightBackground"] = "#ffffff0d"
+        c["editor.lineHighlightBorder"] = "#00000000"
+        c["tab.activeBorder"] = p["accent"]
     if hc:
         c["contrastBorder"] = "#ffffff" if not light else "#000000"
         c["contrastActiveBorder"] = p["accent"]
