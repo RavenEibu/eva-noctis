@@ -1,0 +1,5 @@
+scripts/**
+terminals/**
+.gitignore
+.github/**
+*.vsix

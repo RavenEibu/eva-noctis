@@ -1,0 +1,177 @@
+{
+  "name": "eva-noctis",
+  "displayName": "EVA Noctis",
+  "description": "Twenty-three vivid themes inspired by Rebuild of Evangelion, the MAGI system, NERV, SEELE, the A.T. Field, Instrumentality, Terminal Dogma, the Angels and the berserk EVA-01, with high contrast variants, built on the Noctis theme family.",
+  "version": "0.6.1",
+  "publisher": "RavenEibu",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "a.t. field",
+    "accessibility",
+    "amber",
+    "angel",
+    "anime",
+    "berserk",
+    "color-theme",
+    "dark",
+    "eva",
+    "evangelion",
+    "geofront",
+    "ghostty",
+    "high-contrast",
+    "instrumentality",
+    "kitty",
+    "light",
+    "light-theme",
+    "magi",
+    "neon",
+    "nerv",
+    "noctis",
+    "orange",
+    "purple",
+    "ramiel",
+    "seele",
+    "tabris",
+    "terminal",
+    "theme",
+    "vibrant"
+  ],
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#0d0620",
+    "theme": "dark"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Noctis (EVA-00)",
+        "uiTheme": "vs",
+        "path": "./themes/eva-00.json"
+      },
+      {
+        "label": "Noctis (EVA-01)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/eva-01.json"
+      },
+      {
+        "label": "Noctis (EVA-01 Berserk)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/eva-01-berserk.json"
+      },
+      {
+        "label": "Noctis (EVA-02)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/eva-02.json"
+      },
+      {
+        "label": "Noctis (EVA-03)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/eva-03.json"
+      },
+      {
+        "label": "Noctis (EVA-08)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/eva-08.json"
+      },
+      {
+        "label": "Noctis (EVA-13)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/eva-13.json"
+      },
+      {
+        "label": "Noctis (EVA Mark.06)",
+        "uiTheme": "vs",
+        "path": "./themes/eva-mark06.json"
+      },
+      {
+        "label": "Noctis (MAGI)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/magi.json"
+      },
+      {
+        "label": "Noctis (NERV)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/nerv.json"
+      },
+      {
+        "label": "Noctis (SEELE)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/seele.json"
+      },
+      {
+        "label": "Noctis (NERV High Contrast)",
+        "uiTheme": "hc-black",
+        "path": "./themes/nerv-hc.json"
+      },
+      {
+        "label": "Noctis (EVA Mark.06 High Contrast)",
+        "uiTheme": "hc-light",
+        "path": "./themes/eva-mark06-hc.json"
+      },
+      {
+        "label": "Noctis (A.T. Field)",
+        "uiTheme": "vs",
+        "path": "./themes/at-field.json"
+      },
+      {
+        "label": "Noctis (Instrumentality)",
+        "uiTheme": "vs",
+        "path": "./themes/instrumentality.json"
+      },
+      {
+        "label": "Noctis (Terminal Dogma)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/terminal-dogma.json"
+      },
+      {
+        "label": "Noctis (Ramiel)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/ramiel.json"
+      },
+      {
+        "label": "Noctis (Sachiel)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/sachiel.json"
+      },
+      {
+        "label": "Noctis (EVA-01 Light)",
+        "uiTheme": "vs",
+        "path": "./themes/eva-01-light.json"
+      },
+      {
+        "label": "Noctis (EVA-02 Light)",
+        "uiTheme": "vs",
+        "path": "./themes/eva-02-light.json"
+      },
+      {
+        "label": "Noctis (EVA-08 Light)",
+        "uiTheme": "vs",
+        "path": "./themes/eva-08-light.json"
+      },
+      {
+        "label": "Noctis (Geofront)",
+        "uiTheme": "vs",
+        "path": "./themes/geofront.json"
+      },
+      {
+        "label": "Noctis (Tabris)",
+        "uiTheme": "vs",
+        "path": "./themes/tabris.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RavenEibu/eva-noctis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RavenEibu/eva-noctis/issues"
+  },
+  "homepage": "https://github.com/RavenEibu/eva-noctis#readme"
+}
