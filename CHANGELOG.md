@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- VSIX packaging now rejects missing or mismatched editor and terminal themes, checks OLED true-black surfaces, and verifies the final archive before replacing an existing package.
+
 ## 0.8.0
 - Five new OLED themes with a true `#000000` background: **Noctis (EVA-01 OLED)**, **Noctis (MAGI OLED)**, **Noctis (EVA-02 OLED)**, **Noctis (EVA-00 OLED)** and **Noctis (Lilith OLED)**, each with matching kitty and Ghostty themes.
 
