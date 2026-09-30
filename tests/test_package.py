@@ -21,6 +21,8 @@ class PackageValidationTests(unittest.TestCase):
             shutil.copytree(SOURCE / folder, self.root / folder)
         for name in ("package.json", "README.md", "CHANGELOG.md", "LICENSE.txt", "NOCTIS-LICENSE.md", "icon.png"):
             shutil.copy2(SOURCE / name, self.root / name)
+        version = json.loads((self.root / "package.json").read_text())["version"]
+        self.output = self.root / f"eva-noctis-{version}.vsix"
 
     def package(self):
         return subprocess.run(
@@ -32,17 +34,16 @@ class PackageValidationTests(unittest.TestCase):
         result = self.package()
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("archivos OK", result.stdout)
-        self.assertTrue((self.root / "eva-noctis-0.8.0.vsix").is_file())
+        self.assertTrue(self.output.is_file())
 
     def test_missing_registered_theme_fails_before_replacing_package(self):
         self.assertEqual(self.package().returncode, 0)
-        output = self.root / "eva-noctis-0.8.0.vsix"
-        original = output.read_bytes()
+        original = self.output.read_bytes()
         (self.root / "themes/eva-01-oled.json").unlink()
         result = self.package()
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("generated VS Code theme files differ", result.stderr)
-        self.assertEqual(output.read_bytes(), original)
+        self.assertEqual(self.output.read_bytes(), original)
 
     def test_missing_terminal_theme_fails(self):
         (self.root / "terminals/kitty/themes/Noctis-EVA-01-OLED.conf").unlink()

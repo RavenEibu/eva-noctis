@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.8.1
 - VSIX packaging now rejects missing or mismatched editor and terminal themes, checks OLED true-black surfaces, and verifies the final archive before replacing an existing package.
 
 ## 0.8.0
