@@ -158,6 +158,11 @@ python3 scripts/screenshots.py                     # images/*.png (needs Playwri
 python3 scripts/package.py                         # eva-noctis-<version>.vsix
 ```
 
+Packaging checks every registered VS Code theme against the generated palette,
+its kitty and Ghostty counterparts, and the OLED true-black surfaces. It then
+verifies the files inside the VSIX before replacing an existing package. A
+missing or mismatched theme stops packaging with an error.
+
 Palettes live in `scripts/build.py`. Every text color is adjusted automatically to meet its contrast target (4.5:1, or 7:1 for the high contrast themes).
 
 ## Feedback
