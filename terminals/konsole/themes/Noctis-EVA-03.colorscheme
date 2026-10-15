@@ -17,10 +17,10 @@ Color=141,146,156
 Color=230,238,252
 
 [Color0]
-Color=18,21,28
+Color=42,49,65
 
 [Color0Faint]
-Color=14,16,21
+Color=28,33,43
 
 [Color0Intense]
 Color=79,92,124

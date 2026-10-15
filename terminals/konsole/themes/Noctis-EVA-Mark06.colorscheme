@@ -80,13 +80,13 @@ Color=104,190,210
 Color=35,153,175
 
 [Color7]
-Color=208,211,224
+Color=122,128,152
 
 [Color7Faint]
-Color=222,225,234
+Color=171,175,191
 
 [Color7Intense]
-Color=255,255,255
+Color=140,140,140
 
 [General]
 Description=Noctis (EVA Mark.06)

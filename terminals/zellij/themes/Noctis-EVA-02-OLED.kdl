@@ -4,7 +4,7 @@ themes {
     noctis-eva-02-oled {
         fg "#f5e0dc"
         bg "#000000"
-        black "#26090f"
+        black "#571523"
         red "#ff1f3d"
         green "#9cf05a"
         yellow "#ffb020"

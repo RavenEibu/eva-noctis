@@ -10,7 +10,7 @@
 *.color4: #1a7fc0
 *.color5: #8a4fc0
 *.color6: #0a8f9a
-*.color7: #cfe6d8
+*.color7: #6d8b7a
 *.color8: #5a7a6a
 *.color9: #e5455f
 *.color10: #2ba066
@@ -18,4 +18,4 @@
 *.color12: #3293ee
 *.color13: #a870d8
 *.color14: #2a9da4
-*.color15: #ffffff
+*.color15: #8f8f8f

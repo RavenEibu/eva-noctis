@@ -80,13 +80,13 @@ Color=108,172,192
 Color=41,154,175
 
 [Color7]
-Color=240,208,230
+Color=150,119,139
 
 [Color7Faint]
-Color=246,221,237
+Color=192,167,183
 
 [Color7Intense]
-Color=255,255,255
+Color=140,140,140
 
 [General]
 Description=Noctis (EVA-08 Light)

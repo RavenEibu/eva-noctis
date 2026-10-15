@@ -14,7 +14,7 @@ terminal_colors:
     blue: '#5a4fd0'
     magenta: '#b0308a'
     cyan: '#0e7f96'
-    white: '#e4cdd2'
+    white: '#95797f'
   bright:
     black: '#7a5060'
     red: '#f0455f'
@@ -23,4 +23,4 @@ terminal_colors:
     blue: '#7f78f0'
     magenta: '#cc55b0'
     cyan: '#2897ab'
-    white: '#ffffff'
+    white: '#8c8c8c'

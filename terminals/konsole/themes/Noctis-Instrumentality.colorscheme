@@ -80,13 +80,13 @@ Color=110,172,187
 Color=40,151,171
 
 [Color7]
-Color=228,205,210
+Color=149,121,127
 
 [Color7Faint]
-Color=238,219,223
+Color=191,169,173
 
 [Color7Intense]
-Color=255,255,255
+Color=140,140,140
 
 [General]
 Description=Noctis (Instrumentality)

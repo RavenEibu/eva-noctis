@@ -80,13 +80,13 @@ Color=122,180,195
 Color=59,150,171
 
 [Color7]
-Color=220,218,232
+Color=127,123,154
 
 [Color7Faint]
-Color=229,228,238
+Color=173,171,192
 
 [Color7Intense]
-Color=255,255,255
+Color=140,140,140
 
 [General]
 Description=Noctis (Tabris)

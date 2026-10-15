@@ -136,7 +136,7 @@
     "editorBracketMatch.border": "#456282",
     "editorRuler.foreground": "#203555",
     "editorCodeLens.foreground": "#3f68a6",
-    "terminal.ansiBlack": "#1c222c",
+    "terminal.ansiBlack": "#2c3545",
     "terminal.ansiRed": "#ff3030",
     "terminal.ansiGreen": "#7fd6a8",
     "terminal.ansiYellow": "#f0a050",

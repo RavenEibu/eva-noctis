@@ -80,13 +80,13 @@ Color=102,186,190
 Color=42,157,164
 
 [Color7]
-Color=207,230,216
+Color=109,139,122
 
 [Color7Faint]
-Color=220,238,227
+Color=161,183,171
 
 [Color7Intense]
-Color=255,255,255
+Color=143,143,143
 
 [General]
 Description=Noctis (Geofront)

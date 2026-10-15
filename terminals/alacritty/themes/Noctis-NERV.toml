@@ -14,7 +14,7 @@ text = "#f0f0f0"
 background = "#680a14"
 
 [colors.normal]
-black = "#1a1a20"
+black = "#31313c"
 red = "#e60012"
 green = "#52e08a"
 yellow = "#ffa726"

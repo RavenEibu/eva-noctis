@@ -9,7 +9,7 @@ cursor_fg = "#150409"
 cursor_border = "#ffe100"
 selection_fg = "#ffe9e4"
 selection_bg = "#630d1a"
-ansi = ["#26090f", "#ff1f3d", "#9cf05a", "#ffb020", "#c77dff", "#ff5fa8", "#26e0d0", "#e8cfd0"]
+ansi = ["#5c1624", "#ff1f3d", "#9cf05a", "#ffb020", "#c77dff", "#ff5fa8", "#26e0d0", "#e8cfd0"]
 brights = ["#8b4c57", "#ff5468", "#b8ff80", "#ffe100", "#dba3ff", "#ff8cc4", "#78f0e4", "#ffffff"]
 
 [colors.tab_bar]

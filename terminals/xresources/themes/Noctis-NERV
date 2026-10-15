@@ -3,7 +3,7 @@
 *.foreground: #f0f0f0
 *.background: #0c0c0f
 *.cursorColor: #ffffff
-*.color0: #1a1a20
+*.color0: #31313c
 *.color1: #e60012
 *.color2: #52e08a
 *.color3: #ffa726
