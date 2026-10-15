@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.10.0
+## 0.9.1
 - Color vision deficiency guide: every theme is rated ✅ recommended / ⚠️ use with care / ❌ not recommended for protanopia, deuteranopia and tritanopia (simulated colors, closest terminal-text pair, red vs green and closest syntax pair). The table is in the README and the numbers, thresholds and colliding colors in `docs/color-vision.md`; both are regenerated from the palettes (`python3 scripts/accessibility.py --write`) and a test fails if they are stale. No colors changed.
 
 ## 0.9.0
