@@ -117,7 +117,7 @@ simple_hint() { # simple_hint <terminal> <dark theme> <light theme>
 }
 simple_installed() { compgen -G "$(simple_dir "$1")/Noctis-*$(simple_ext "$1")" >/dev/null; }
 simple_wanted()    { [ "$EXPLICIT" = 0 ] || [[ " $WANT_SIMPLE " == *" $1 "* ]]; }
-install_simple()   { local d e; d="$(simple_dir "$1")"; e="$(simple_ext "$1")"; mkdir -p "$d"; cp "$SRC/$1/themes/"* "$d/"
+install_simple()   { local d; d="$(simple_dir "$1")"; mkdir -p "$d"; cp "$SRC/$1/themes/"* "$d/"
                      echo "$1: installed $(ls "$SRC/$1/themes" | wc -l | tr -d ' ') themes in $d"; }
 apply_simple()     { echo "$1: $(simple_hint "$1" "$DARK" "$LIGHT")"; }
 uninstall_simple() { local d; d="$(simple_dir "$1")"; rm -f "$d"/Noctis-*; echo "$1: removed the Noctis themes from $d (remove the line you added to your config, if any)"; }
@@ -258,7 +258,7 @@ choose_pair() {
 }
 
 interactive() {
-  local kmark="not detected" gmark="not detected" opts=() labels=() n
+  local kmark="not detected" gmark="not detected" opts=() n
   has_kitty   && kmark="detected";  kitty_installed   && kmark="Noctis themes installed"
   has_ghostty && gmark="detected";  ghostty_installed && gmark="Noctis themes installed"
   echo
@@ -267,7 +267,7 @@ interactive() {
   echo "  Ghostty: $gmark"
   echo
   n=0
-  add() { n=$((n+1)); opts[$n]="$1"; labels[$n]="$2"; echo "  $n) $2"; }
+  add() { n=$((n+1)); opts[$n]="$1"; echo "  $n) $2"; }
   add "install kitty"       "Install / update for kitty"
   add "install ghostty"     "Install / update for Ghostty"
   add "install both"        "Install / update for both"

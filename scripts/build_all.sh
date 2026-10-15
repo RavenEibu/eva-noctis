@@ -21,11 +21,11 @@ python3 -m unittest discover -s tests
 python3 scripts/package.py
 
 if [ "${1:-}" = "--check" ]; then
-  if ! git diff --exit-code --stat -- themes terminals; then
+  if ! git diff --exit-code --stat -- themes terminals ':(exclude)terminals/install.sh' ':(exclude)terminals/install.ps1'; then
     echo "Generated files differ from the committed ones: edit scripts/build.py or scripts/terminals.py, regenerate and commit." >&2
     exit 1
   fi
-  if [ -n "$(git ls-files --others --exclude-standard -- themes terminals)" ]; then
+  if [ -n "$(git ls-files --others --exclude-standard -- themes terminals ':(exclude)terminals/install.sh' ':(exclude)terminals/install.ps1')" ]; then
     echo "Untracked generated files:" >&2; git ls-files --others --exclude-standard -- themes terminals >&2; exit 1
   fi
 fi

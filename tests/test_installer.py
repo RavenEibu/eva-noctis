@@ -146,6 +146,20 @@ class InstallerTests(unittest.TestCase):
         self.assertIn("Checksum OK", ok.stdout)
         self.assertTrue((self.kitty / "themes/Noctis-EVA-01.conf").is_file())
 
+    def test_paths_with_spaces(self):
+        spaced = self.home / "my home" / "con espacios"
+        (spaced / ".config/ghostty").mkdir(parents=True)
+        (spaced / ".config/ghostty/config").write_text("font-size = 12\n")
+        env = dict(os.environ, HOME=str(spaced), XDG_CONFIG_HOME=str(spaced / ".config"),
+                   KITTY_CONFIG_DIRECTORY=str(spaced / ".config/kitty"), XDG_DATA_HOME=str(spaced / ".local/share"))
+        run = lambda *a: subprocess.run(["bash", str(INSTALL), *a], env=env, stdin=subprocess.DEVNULL, capture_output=True, text=True)
+        result = run("--install", "--apply", "--kitty", "--ghostty", "--tmux")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("Noctis-EVA-01", (spaced / ".config/ghostty/config").read_text())
+        self.assertTrue((spaced / ".config/kitty/dark-theme.auto.conf").is_file())
+        self.assertEqual(run("--uninstall").returncode, 0)
+        self.assertEqual((spaced / ".config/ghostty/config").read_text(), "font-size = 12\n")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -19,8 +19,8 @@ jobs:
           node-version: "20"
       - name: The VSIX ships the same files as the official vsce
         run: bash scripts/check_vsce.sh
-      - name: Shell syntax of the installer
-        run: bash -n terminals/install.sh
+      - name: Shellcheck the installer and scripts
+        run: shellcheck -S warning terminals/install.sh scripts/*.sh
       - name: Install terminals to load the themes with the real applications
         run: sudo apt-get update && sudo apt-get install -y tmux kitty foot x11-xserver-utils
       - name: Load the themes (tools that are not installed are skipped)

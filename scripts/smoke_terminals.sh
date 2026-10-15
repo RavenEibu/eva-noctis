@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Load every generated terminal theme with the real application when it is installed. Missing tools are skipped.
 #   bash scripts/smoke_terminals.sh
-cd "$(dirname "${BASH_SOURCE[0]}")/.."
+cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit 1
 fail=0; tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
 note() { printf '%-10s %s\n' "$1" "$2"; }
 

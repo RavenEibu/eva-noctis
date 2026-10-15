@@ -180,6 +180,19 @@ All of them are generated from the same palettes and checked against the VS Code
 
 Theme file names follow the pattern `Noctis-EVA-01`, `Noctis-EVA-01-Berserk`, `Noctis-MAGI`, `Noctis-NERV-HC`, and so on.
 
+## Stability and support
+
+From 1.0 the public surface is: the theme names (`Noctis (EVA-01)`, ...), the terminal theme file names (`Noctis-EVA-01`, ...), the `install.sh` / `install.ps1` flags and the `EVA_NOCTIS_*` variables. Renaming or removing any of them is a major version; adding a theme or format is a minor one; color tweaks and fixes are patches.
+
+Terminal formats by how they were checked:
+
+| Level | Formats |
+| --- | --- |
+| Loaded by the real application in every release | VS Code, kitty, Ghostty, Alacritty, WezTerm, foot, tmux, Zellij, xrdb (Xresources), Konsole (background/foreground) |
+| Checked against the vendor schema or format only | Windows Terminal, iTerm2, Warp, Termux (best effort) |
+
+macOS support of `install.sh` is also best effort (it only uses bash 3.2 features, but it is not tested there).
+
 ## Development
 
 Themes are generated from the Noctis base themes by a small script, so a palette change is one edit and a rebuild:
