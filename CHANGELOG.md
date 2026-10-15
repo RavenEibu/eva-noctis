@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+- New themes for Windows Terminal, iTerm2, foot, Konsole, Xresources (xterm/urxvt/st), tmux, Zellij, Termux and Warp, for all 28 variants. Packaging compares their background, foreground and ANSI colors with the VS Code terminal. `install.sh` installs foot, Konsole, Zellij, tmux and Xresources with `--foot`, `--konsole`, `--zellij`, `--tmux` and `--xresources`.
+- New Alacritty (`terminals/alacritty`) and WezTerm (`terminals/wezterm`) themes for all 28 variants, generated from the same palettes. `install.sh` handles them with `--alacritty` / `--wezterm`.
+- `install.sh --status` shows what is installed and the active pair; Ghostty's `config.ghostty` is used when it is the config file you have.
+- Packaging now enforces the readability contract (syntax 4.5:1, comments 4:1, high contrast 7:1, status bar, cursor and ANSI colors) and checks Alacritty/WezTerm parity.
+- `scripts/build_all.sh` (pinned Noctis base, `--check` mode) and a GitHub Actions workflow that fails when generated files are out of date.
+- Terminal bright black (ANSI 8) now keeps at least 3:1 contrast against the background in every theme (it is used for comments and suggestions).
+- Noctis (EVA Mark.06 High Contrast): bright white (ANSI 15) is no longer white on white and meets 7:1.
+- Cursor color keeps at least 3:1 contrast in every theme (EVA-00, EVA-02 Light and EVA-08 Light were lower); kitty/Ghostty selections are now visibly distinct from the background while keeping readable text.
+- kitty themes carry `author`, `license`, `upstream` and `blurb` metadata.
+- `terminals/install.sh`: `EVA_NOCTIS_REF` pins the downloaded tag or commit instead of `main`.
+- `terminals/install.sh`: `--kitty --ghostty` now installs both; an unknown theme in `--apply` exits with an error before installing; re-applying a pair no longer backs up an EVA Noctis theme as if it were your original, and uninstall cleans leftover backups.
+
 ## 0.8.1
 - VSIX packaging now rejects missing or mismatched editor and terminal themes, checks OLED true-black surfaces, and verifies the final archive before replacing an existing package.
 

@@ -290,10 +290,21 @@ def contrast(a, b):
 def ensure(fg, bg, minimum, light):
     """Ajusta la luminosidad hasta alcanzar el contraste minimo, conservando tono y saturacion."""
     h, s, l = to_hls(fg)
-    while contrast(fg, bg) < minimum and 0.02 < l < 0.98:
-        l += -0.01 if light else 0.01
+    step = -0.01 if light else 0.01
+    while contrast(fg, bg) < minimum and 0.0 <= l + step <= 1.0:
+        l += step
         fg = to_hex(h, s, l)
     return fg
+
+def cursor_color(p):
+    """Color del cursor con al menos 3:1 sobre el fondo (los temas claros usaban un naranja demasiado palido)."""
+    return ensure(p["accent2"], p["bg"], 7.0 if p.get("hc") else 3.0, p["type"] == "light")
+
+def ansi_colors(p):
+    """16 colores ANSI: los de texto se ajustan a 3:1 (7:1 en alto contraste); negro, blanco y blanco brillante se respetan.
+    El gris (indice 8) se usa para comentarios y sugerencias, asi que tambien exige 3:1."""
+    light, hc = p["type"] == "light", p.get("hc", False)
+    return [ensure(v, p["bg"], 7.0 if hc else 3.0, light) if (hc or i not in (0, 7, 15)) else v for i, v in enumerate(p["ansi"])]
 
 ANSI = ["Black", "Red", "Green", "Yellow", "Blue", "Magenta", "Cyan", "White"]
 
@@ -303,7 +314,7 @@ def build(key, p):
     mn = 7.0 if hc else 4.5
     p["tokens"] = {k: (v if k in ("text",) else ensure(v, p["bg"], 4.0 if (k == "comment" and not hc) else mn, light))
                    for k, v in p["tokens"].items()}
-    p["ansi"] = [ensure(v, p["bg"], 7.0 if hc else 3.0, light) if (hc or i not in (0, 7, 8, 15)) else v for i, v in enumerate(p["ansi"])]
+    p["ansi"] = ansi_colors(p)
     base = json.loads((SRC / f"{p['base']}.json").read_text())
     t = make_transform(p)(base)
     t["name"], t["type"] = p["name"], p["type"]
@@ -315,7 +326,7 @@ def build(key, p):
         "terminal.foreground": p["text"], "sideBar.background": p["side"], "activityBar.background": p["side"],
         "titleBar.activeBackground": p["side"], "titleBar.inactiveBackground": p["side"],
         "statusBar.background": p["status"], "statusBar.foreground": p["status_fg"],
-        "editorCursor.foreground": p["accent2"], "tab.activeBorderTop": p["accent2"],
+        "editorCursor.foreground": cursor_color(p), "tab.activeBorderTop": p["accent2"],
         "editor.selectionBackground": p["select"], "focusBorder": p["accent"],
         "editorWarning.foreground": ensure(p["tokens"]["constant"], p["bg"], mn, light),
         "editorError.foreground": ensure(p["tokens"]["invalid"], p["bg"], mn, light),

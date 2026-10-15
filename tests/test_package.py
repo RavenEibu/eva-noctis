@@ -60,6 +60,55 @@ class PackageValidationTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("OLED surface panel.background", result.stderr)
 
+    def test_low_contrast_token_fails(self):
+        path = self.root / "themes/eva-01.json"
+        theme = json.loads(path.read_text())
+        theme["tokenColors"][0]["settings"]["foreground"] = theme["colors"]["editor.background"]
+        path.write_text(json.dumps(theme))
+        result = self.package()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("needs 4", result.stderr)
+
+    def test_missing_alacritty_or_wezterm_theme_fails(self):
+        for terminal in ("alacritty", "wezterm"):
+            (self.root / f"terminals/{terminal}/themes/Noctis-EVA-01.toml").unlink()
+            result = self.package()
+            self.assertNotEqual(result.returncode, 0, terminal)
+            self.assertIn(terminal, result.stderr)
+            shutil.copy2(SOURCE / f"terminals/{terminal}/themes/Noctis-EVA-01.toml",
+                         self.root / f"terminals/{terminal}/themes/Noctis-EVA-01.toml")
+
+    def test_alacritty_ansi_mismatch_fails(self):
+        path = self.root / "terminals/alacritty/themes/Noctis-EVA-01.toml"
+        path.write_text(path.read_text().replace('red = "#ff2d55"', 'red = "#000001"'))
+        result = self.package()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("alacritty ANSI 1 differs", result.stderr)
+
+    def test_missing_extra_terminal_theme_fails(self):
+        for folder, name in (("foot", "Noctis-EVA-01.ini"), ("iterm2", "Noctis-EVA-01.itermcolors"),
+                             ("windows-terminal", "Noctis-EVA-01.json"), ("tmux", "Noctis-EVA-01.conf")):
+            path = self.root / "terminals" / folder / "themes" / name
+            backup = path.read_bytes()
+            path.unlink()
+            result = self.package()
+            self.assertNotEqual(result.returncode, 0, folder)
+            self.assertIn(f"missing {folder} theme", result.stderr)
+            path.write_bytes(backup)
+
+    def test_extra_terminal_color_mismatch_fails(self):
+        path = self.root / "terminals/konsole/themes/Noctis-EVA-01.colorscheme"
+        path.write_text(path.read_text().replace("[Color1]\nColor=255,45,85", "[Color1]\nColor=1,2,3"))
+        result = self.package()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("konsole ANSI 1 differs", result.stderr)
+
+    def test_malformed_extra_terminal_theme_fails(self):
+        (self.root / "terminals/warp/themes/Noctis-EVA-01.yaml").write_text("name: broken\n")
+        result = self.package()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("warp theme is malformed", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

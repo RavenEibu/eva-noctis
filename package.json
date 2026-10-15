@@ -14,6 +14,7 @@
   "keywords": [
     "a.t. field",
     "accessibility",
+    "alacritty",
     "amber",
     "angel",
     "anime",
@@ -26,7 +27,9 @@
     "ghostty",
     "high-contrast",
     "instrumentality",
+    "iterm2",
     "kitty",
+    "konsole",
     "light",
     "light-theme",
     "magi",
@@ -40,7 +43,11 @@
     "tabris",
     "terminal",
     "theme",
-    "vibrant"
+    "tmux",
+    "vibrant",
+    "wezterm",
+    "windows-terminal",
+    "zellij"
   ],
   "icon": "icon.png",
   "galleryBanner": {
