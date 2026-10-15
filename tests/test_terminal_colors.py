@@ -41,5 +41,29 @@ class AnsiContrastTests(unittest.TestCase):
             self.assertGreaterEqual(distance, A["MIN_NORMAL"], f"{key}: ANSI {i} and {j} look alike")
 
 
+class PaletteDataTests(unittest.TestCase):
+    def load(self, text):
+        import tempfile
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "palettes.toml"
+            path.write_text(text)
+            return B["load_palettes"](path)
+
+    def test_variants_inherit_and_override(self):
+        palettes = B["P"]
+        self.assertEqual(palettes["eva-01-oled"]["ansi"], palettes["eva-01"]["ansi"])
+        self.assertEqual(palettes["eva-01-oled"]["bg"], "#000000")
+        self.assertEqual(palettes["eva-01-oled"]["tokens"]["keyword"], palettes["eva-01"]["tokens"]["keyword"])
+        self.assertNotEqual(palettes["eva-01-oled"]["tokens"]["text"], palettes["eva-01"]["tokens"]["text"])
+
+    def test_unknown_parent_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, "extends 'nope'"):
+            self.load('[child]\nextends = "nope"\n')
+
+    def test_incomplete_palette_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, "palette needs"):
+            self.load('[broken]\nname = "x"\n')
+
+
 if __name__ == "__main__":
     unittest.main()

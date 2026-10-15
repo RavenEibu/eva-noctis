@@ -204,7 +204,7 @@ its terminal counterparts (kitty, Ghostty, Alacritty, WezTerm and every format a
 verifies the files inside the VSIX before replacing an existing package. A
 missing or mismatched theme stops packaging with an error.
 
-Palettes live in `scripts/build.py`. Every text color is adjusted automatically to meet its contrast target (4.5:1, or 7:1 for the high contrast themes).
+Palettes are plain data in `scripts/palettes.toml` (a palette can `extends` another and override only what changes, like the OLED and high contrast variants); `scripts/build.py` turns them into the VS Code themes and `scripts/terminals.py` into every terminal theme. Every text color is adjusted automatically to meet its contrast target (4.5:1, or 7:1 for the high contrast themes).
 
 ## Feedback
 

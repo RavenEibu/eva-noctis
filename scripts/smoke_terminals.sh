@@ -42,6 +42,16 @@ if command -v ghostty >/dev/null; then
   note ghostty "$([ $bad = 0 ] && echo ok || echo FAILED)"; fail=$((fail + bad))
 else note ghostty skipped; fi
 
+if command -v foot >/dev/null; then
+  bad=0
+  for f in terminals/foot/themes/*.ini; do
+    printf 'include=%s\n' "$PWD/$f" > "$tmp/foot.ini"
+    out="$(foot --check-config -c "$tmp/foot.ini" 2>&1)" || bad=1
+    echo "$out" | grep -qiE 'warn|err|invalid|deprecat' && bad=1
+  done
+  note foot "$([ $bad = 0 ] && echo ok || echo FAILED)"; fail=$((fail + bad))
+else note foot skipped; fi
+
 if command -v kitty >/dev/null; then
   cat > "$tmp/kc.py" <<'PY'
 import sys

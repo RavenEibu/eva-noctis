@@ -22,6 +22,6 @@ jobs:
       - name: Shell syntax of the installer
         run: bash -n terminals/install.sh
       - name: Install terminals to load the themes with the real applications
-        run: sudo apt-get update && sudo apt-get install -y tmux kitty x11-xserver-utils
+        run: sudo apt-get update && sudo apt-get install -y tmux kitty foot x11-xserver-utils
       - name: Load the themes (tools that are not installed are skipped)
         run: bash scripts/smoke_terminals.sh
