@@ -1,0 +1,29 @@
+# Noctis (Terminal Dogma)
+# EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+
+[colors]
+foreground = "#cfe3da"
+background = "#04100f"
+cursor_bg = "#c23b3b"
+cursor_fg = "#04100f"
+cursor_border = "#c23b3b"
+selection_fg = "#cfe3da"
+selection_bg = "#0b3c36"
+ansi = ["#10201e", "#e04545", "#6fe0b0", "#e0a030", "#5ab0e0", "#b58cd6", "#3fd0c0", "#cfe3da"]
+brights = ["#456660", "#f06a66", "#9af0c8", "#f0c060", "#8ac8f0", "#cfa8e8", "#7be0d8", "#ffffff"]
+
+[colors.tab_bar]
+background = "#020808"
+
+[colors.tab_bar.active_tab]
+bg_color = "#1fb5a0"
+fg_color = "#000000"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#04100f"
+fg_color = "#3fd0c0"
+
+[metadata]
+name = "Noctis-Terminal-Dogma"
+author = "RavenEibu"
+origin_url = "https://github.com/RavenEibu/eva-noctis"

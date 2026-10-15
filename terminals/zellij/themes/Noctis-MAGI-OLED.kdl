@@ -1,0 +1,17 @@
+// Noctis (MAGI OLED)
+// EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+themes {
+    noctis-magi-oled {
+        fg "#ffc27a"
+        bg "#000000"
+        black "#1f130b"
+        red "#ff2a2a"
+        green "#3dffa8"
+        yellow "#ff9f1a"
+        blue "#4d9bff"
+        magenta "#c96bff"
+        orange "#ff6a00"
+        cyan "#19d3c5"
+        white "#e8cfae"
+    }
+}

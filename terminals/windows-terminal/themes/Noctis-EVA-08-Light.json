@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (EVA-08 Light)",
+      "foreground": "#3a0a2a",
+      "background": "#fff0f8",
+      "cursorColor": "#0999b1",
+      "selectionBackground": "#ffb1db",
+      "black": "#3a1a30",
+      "brightBlack": "#7a4a68",
+      "red": "#d4142a",
+      "brightRed": "#f0455f",
+      "green": "#0f8a5f",
+      "brightGreen": "#2b9e74",
+      "yellow": "#b86a00",
+      "brightYellow": "#c57917",
+      "blue": "#4a5fd0",
+      "brightBlue": "#7080f0",
+      "purple": "#d4157f",
+      "brightPurple": "#ef4ca3",
+      "cyan": "#0a7f9a",
+      "brightCyan": "#299aaf",
+      "white": "#f0d0e6",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

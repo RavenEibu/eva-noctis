@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (EVA-02 OLED)",
+      "foreground": "#f5e0dc",
+      "background": "#000000",
+      "cursorColor": "#ffe100",
+      "selectionBackground": "#660c18",
+      "black": "#26090f",
+      "brightBlack": "#844852",
+      "red": "#ff1f3d",
+      "brightRed": "#ff5468",
+      "green": "#9cf05a",
+      "brightGreen": "#b8ff80",
+      "yellow": "#ffb020",
+      "brightYellow": "#ffe100",
+      "blue": "#c77dff",
+      "brightBlue": "#dba3ff",
+      "purple": "#ff5fa8",
+      "brightPurple": "#ff8cc4",
+      "cyan": "#26e0d0",
+      "brightCyan": "#78f0e4",
+      "white": "#e8cfd0",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

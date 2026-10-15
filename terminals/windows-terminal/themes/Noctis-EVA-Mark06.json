@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (EVA Mark.06)",
+      "foreground": "#1a1d2e",
+      "background": "#f4f5f9",
+      "cursorColor": "#ff3d00",
+      "selectionBackground": "#c7c2fa",
+      "black": "#2a2d40",
+      "brightBlack": "#6b7090",
+      "red": "#d4143a",
+      "brightRed": "#f0455f",
+      "green": "#12a15c",
+      "brightGreen": "#2ba065",
+      "yellow": "#eb6200",
+      "brightYellow": "#dc6c00",
+      "blue": "#3a5bd9",
+      "brightBlue": "#5f80f0",
+      "purple": "#a03df0",
+      "brightPurple": "#b766ff",
+      "cyan": "#0a9ab8",
+      "brightCyan": "#2399af",
+      "white": "#d0d3e0",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

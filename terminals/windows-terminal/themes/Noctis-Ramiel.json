@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (Ramiel)",
+      "foreground": "#cfe0ff",
+      "background": "#020a1f",
+      "cursorColor": "#3ad9ff",
+      "selectionBackground": "#0b2c6f",
+      "black": "#0e1a3a",
+      "brightBlack": "#445c95",
+      "red": "#ff3b5c",
+      "brightRed": "#ff6a80",
+      "green": "#3af0d0",
+      "brightGreen": "#7af5e0",
+      "yellow": "#ffc04d",
+      "brightYellow": "#ffd985",
+      "blue": "#4d8bff",
+      "brightBlue": "#7fb0ff",
+      "purple": "#a08cff",
+      "brightPurple": "#c2b0ff",
+      "cyan": "#52e0ff",
+      "brightCyan": "#8aeaff",
+      "white": "#cfe0ff",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

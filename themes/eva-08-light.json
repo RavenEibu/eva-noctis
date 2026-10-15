@@ -10,7 +10,7 @@
     "editor.foreground": "#3a0a2a",
     "editorLineNumber.foreground": "#bd8fae",
     "editorLineNumber.activeForeground": "#9d105e",
-    "editorCursor.foreground": "#0aa6c0",
+    "editorCursor.foreground": "#0999b1",
     "badge.background": "#9d105e",
     "badge.foreground": "#ffebf6",
     "activityBar.background": "#fbdcee",

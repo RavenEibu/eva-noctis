@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (NERV High Contrast)",
+      "foreground": "#ffffff",
+      "background": "#000000",
+      "cursorColor": "#ffffff",
+      "selectionBackground": "#8a000b",
+      "black": "#9595a9",
+      "brightBlack": "#9595a3",
+      "red": "#ff616e",
+      "brightRed": "#ff616d",
+      "green": "#52e08a",
+      "brightGreen": "#86f0b0",
+      "yellow": "#ffa726",
+      "brightYellow": "#ffd166",
+      "blue": "#5e9bff",
+      "brightBlue": "#8cb8ff",
+      "purple": "#d373d2",
+      "brightPurple": "#e598e4",
+      "cyan": "#4fd1d9",
+      "brightCyan": "#86e6ec",
+      "white": "#e0e0e6",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

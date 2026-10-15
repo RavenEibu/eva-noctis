@@ -1,0 +1,26 @@
+# Noctis (EVA-03)
+# EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+name: 'Noctis (EVA-03)'
+accent: '#ff2a2a'
+background: '#07080b'
+foreground: '#e6eefc'
+details: darker
+terminal_colors:
+  normal:
+    black: '#12151c'
+    red: '#ff2a2a'
+    green: '#4dffb0'
+    yellow: '#ffa000'
+    blue: '#5aa8ff'
+    magenta: '#c07dff'
+    cyan: '#28d4ff'
+    white: '#cdd8ee'
+  bright:
+    black: '#4f5c7c'
+    red: '#ff6262'
+    green: '#8affcc'
+    yellow: '#ffc84d'
+    blue: '#8ac4ff'
+    magenta: '#d9a5ff'
+    cyan: '#7be8ff'
+    white: '#ffffff'

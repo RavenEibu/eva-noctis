@@ -1,0 +1,17 @@
+// Noctis (NERV)
+// EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+themes {
+    noctis-nerv {
+        fg "#f0f0f0"
+        bg "#0c0c0f"
+        black "#1a1a20"
+        red "#e60012"
+        green "#52e08a"
+        yellow "#ffa726"
+        blue "#5e9bff"
+        magenta "#d16bd0"
+        orange "#e60012"
+        cyan "#4fd1d9"
+        white "#e0e0e6"
+    }
+}

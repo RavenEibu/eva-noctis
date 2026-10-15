@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (Tabris)",
+      "foreground": "#26243a",
+      "background": "#f3f2f8",
+      "cursorColor": "#6a5fb0",
+      "selectionBackground": "#c9c2ed",
+      "black": "#2a2840",
+      "brightBlack": "#6a6888",
+      "red": "#b8323a",
+      "brightRed": "#d8555a",
+      "green": "#2a8a78",
+      "brightGreen": "#429b88",
+      "yellow": "#a0742a",
+      "brightYellow": "#ae8231",
+      "blue": "#4a6fc0",
+      "brightBlue": "#628ade",
+      "purple": "#8a4fc0",
+      "brightPurple": "#a870d8",
+      "cyan": "#2a8aa0",
+      "brightCyan": "#3b96ab",
+      "white": "#dcdae8",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

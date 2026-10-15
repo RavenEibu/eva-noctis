@@ -1,0 +1,29 @@
+# Noctis (Ramiel)
+# EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+
+[colors]
+foreground = "#cfe0ff"
+background = "#020a1f"
+cursor_bg = "#3ad9ff"
+cursor_fg = "#020a1f"
+cursor_border = "#3ad9ff"
+selection_fg = "#cfe0ff"
+selection_bg = "#0b2c6f"
+ansi = ["#0e1a3a", "#ff3b5c", "#3af0d0", "#ffc04d", "#4d8bff", "#a08cff", "#52e0ff", "#cfe0ff"]
+brights = ["#445c95", "#ff6a80", "#7af5e0", "#ffd985", "#7fb0ff", "#c2b0ff", "#8aeaff", "#ffffff"]
+
+[colors.tab_bar]
+background = "#01040c"
+
+[colors.tab_bar.active_tab]
+bg_color = "#1e6bff"
+fg_color = "#000000"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#020a1f"
+fg_color = "#4d9bff"
+
+[metadata]
+name = "Noctis-Ramiel"
+author = "RavenEibu"
+origin_url = "https://github.com/RavenEibu/eva-noctis"

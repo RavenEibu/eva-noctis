@@ -1,0 +1,17 @@
+// Noctis (Lilith OLED)
+// EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+themes {
+    noctis-lilith-oled {
+        fg "#eae4dc"
+        bg "#000000"
+        black "#140c0c"
+        red "#ff2d3f"
+        green "#a8d8a0"
+        yellow "#e0a25a"
+        blue "#6fa0e8"
+        magenta "#d89ad8"
+        orange "#d4142a"
+        cyan "#7fd8e0"
+        white "#e0d8cc"
+    }
+}

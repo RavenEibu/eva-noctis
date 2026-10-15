@@ -1,0 +1,29 @@
+# Noctis (A.T. Field)
+# EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+
+[colors]
+foreground = "#3a1e0c"
+background = "#fff6ea"
+cursor_bg = "#d84a00"
+cursor_fg = "#fff6ea"
+cursor_border = "#d84a00"
+selection_fg = "#3a1e0c"
+selection_bg = "#ffbe79"
+ansi = ["#3a2a20", "#c81e1e", "#1f8f5f", "#c86a00", "#2f6fd0", "#a03fb8", "#0a8f9a", "#d8c8b8"]
+brights = ["#7a6252", "#e04a3a", "#3aa174", "#e16e00", "#558cf0", "#bd60d4", "#2a9da8", "#ffffff"]
+
+[colors.tab_bar]
+background = "#ffe9d1"
+
+[colors.tab_bar.active_tab]
+bg_color = "#ff6a00"
+fg_color = "#000000"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#fff6ea"
+fg_color = "#0e78a7"
+
+[metadata]
+name = "Noctis-AT-Field"
+author = "RavenEibu"
+origin_url = "https://github.com/RavenEibu/eva-noctis"

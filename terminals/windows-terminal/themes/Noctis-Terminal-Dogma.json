@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (Terminal Dogma)",
+      "foreground": "#cfe3da",
+      "background": "#04100f",
+      "cursorColor": "#c23b3b",
+      "selectionBackground": "#0b3c36",
+      "black": "#10201e",
+      "brightBlack": "#456660",
+      "red": "#e04545",
+      "brightRed": "#f06a66",
+      "green": "#6fe0b0",
+      "brightGreen": "#9af0c8",
+      "yellow": "#e0a030",
+      "brightYellow": "#f0c060",
+      "blue": "#5ab0e0",
+      "brightBlue": "#8ac8f0",
+      "purple": "#b58cd6",
+      "brightPurple": "#cfa8e8",
+      "cyan": "#3fd0c0",
+      "brightCyan": "#7be0d8",
+      "white": "#cfe3da",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}
