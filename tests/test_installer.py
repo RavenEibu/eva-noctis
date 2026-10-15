@@ -1,6 +1,9 @@
 """terminals/install.sh must handle flags, bad themes and re-apply/uninstall in a disposable HOME."""
 
+import hashlib
 import os
+import shutil
+import tarfile
 from pathlib import Path
 import subprocess
 import tempfile
@@ -100,6 +103,48 @@ class InstallerTests(unittest.TestCase):
         self.assertEqual(self.run_install("--uninstall", *flags).returncode, 0)
         self.assertFalse(list(self.home.rglob("Noctis-*.ini")) + list(self.home.rglob("Noctis-*.kdl"))
                          + list(self.home.rglob("Noctis-*.colorscheme")))
+
+    def snapshot(self):
+        return sorted((str(p.relative_to(self.home)), p.read_bytes()) for p in self.home.rglob("*") if p.is_file())
+
+    def test_dry_run_changes_nothing(self):
+        before = self.snapshot()
+        result = self.run_install("--dry-run", "--install", "--apply", "--kitty", "--ghostty", "--tmux")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("[dry-run]", result.stdout)
+        self.assertEqual(self.snapshot(), before)
+        self.assertFalse((self.kitty / "themes").exists())
+
+    def make_remote_copy(self):
+        """A copy of install.sh outside any checkout plus a tarball shaped like GitHub's archive."""
+        lone = self.home / "lone"
+        lone.mkdir()
+        shutil.copy2(INSTALL, lone / "install.sh")
+        tarball = self.home / "archive.tar.gz"
+        with tarfile.open(tarball, "w:gz") as archive:
+            archive.add(SOURCE / "terminals", arcname="eva-noctis-test/terminals",
+                        filter=lambda info: None if info.name.endswith("install.sh") else info)
+        return lone / "install.sh", tarball
+
+    def run_remote(self, script, tarball, sha):
+        env = dict(os.environ, HOME=str(self.home), XDG_CONFIG_HOME=str(self.home / ".config"),
+                   KITTY_CONFIG_DIRECTORY=str(self.kitty), EVA_NOCTIS_URL="file://" + str(tarball))
+        if sha:
+            env["EVA_NOCTIS_SHA256"] = sha
+        return subprocess.run(["bash", str(script), "--install", "--kitty"], env=env, stdin=subprocess.DEVNULL,
+                              capture_output=True, text=True)
+
+    def test_download_checksum_is_verified(self):
+        script, tarball = self.make_remote_copy()
+        good = hashlib.sha256(tarball.read_bytes()).hexdigest()
+        bad = self.run_remote(script, tarball, "0" * 64)
+        self.assertEqual(bad.returncode, 1)
+        self.assertIn("Checksum mismatch", bad.stderr)
+        self.assertFalse((self.kitty / "themes").exists())
+        ok = self.run_remote(script, tarball, good)
+        self.assertEqual(ok.returncode, 0, ok.stderr)
+        self.assertIn("Checksum OK", ok.stdout)
+        self.assertTrue((self.kitty / "themes/Noctis-EVA-01.conf").is_file())
 
 
 if __name__ == "__main__":

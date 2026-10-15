@@ -300,11 +300,27 @@ def cursor_color(p):
     """Color del cursor con al menos 3:1 sobre el fondo (los temas claros usaban un naranja demasiado palido)."""
     return ensure(p["accent2"], p["bg"], 7.0 if p.get("hc") else 3.0, p["type"] == "light")
 
+def ansi_min(p, i):
+    """Contraste minimo contra el fondo de cada color ANSI.
+    Texto (1-6, 9-14) y gris (8, comentarios y sugerencias): 3:1. En alto contraste todo exige 7:1.
+    El negro (0) de los temas oscuros y el blanco (7, 15) de los claros eran casi invisibles (~1.1:1): ahora son un gris legible,
+    como en otros temas claros/oscuros populares, para que `ls` o `git diff` no pinten texto invisible."""
+    if p.get("hc"):
+        return 7.0
+    if p["type"] == "light":
+        return {7: 3.5, 15: 3.0}.get(i, 3.0 if i != 0 else 0)
+    return 1.5 if i == 0 else 0 if i in (7, 15) else 3.0
+
 def ansi_colors(p):
-    """16 colores ANSI: los de texto se ajustan a 3:1 (7:1 en alto contraste); negro, blanco y blanco brillante se respetan.
-    El gris (indice 8) se usa para comentarios y sugerencias, asi que tambien exige 3:1."""
-    light, hc = p["type"] == "light", p.get("hc", False)
-    return [ensure(v, p["bg"], 7.0 if hc else 3.0, light) if (hc or i not in (0, 7, 15)) else v for i, v in enumerate(p["ansi"])]
+    """16 colores ANSI ajustados a ansi_min (negro de los temas claros y blanco de los oscuros se respetan)."""
+    light = p["type"] == "light"
+    out = []
+    for i, v in enumerate(p["ansi"]):
+        if light and i in (7, 15) and not p.get("hc"):  # el "blanco" de un tema claro es un gris neutro, no un azul que se confunda con el color 4
+            h, sat, l = to_hls(v)
+            v = to_hex(h, min(sat, 0.12), l)
+        out.append(ensure(v, p["bg"], ansi_min(p, i), light) if ansi_min(p, i) else v)
+    return out
 
 ANSI = ["Black", "Red", "Green", "Yellow", "Blue", "Magenta", "Cyan", "White"]
 

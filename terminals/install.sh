@@ -14,11 +14,15 @@
 #   --dark NAME --light NAME    the pair to activate (default EVA-01 / EVA-00)
 #   --list                      list the available themes
 #   --status                    show what is installed and which pair is active
+#   --dry-run                   print what would change without touching any file
+#
+# Environment: EVA_NOCTIS_REF=<tag|commit> installs from that ref instead of main;
+#              EVA_NOCTIS_SHA256=<hash> verifies the downloaded archive (see SHA256SUMS in the release).
 set -euo pipefail
 
 # EVA_NOCTIS_REF pins a tag or commit (default: main), e.g. EVA_NOCTIS_REF=v0.8.1
-REPO_TARBALL="https://github.com/RavenEibu/eva-noctis/archive/${EVA_NOCTIS_REF:-refs/heads/main}.tar.gz"
-EXPLICIT=0; ACTION=""; DO_KITTY=1; DO_GHOSTTY=1; WANT_KITTY=0; WANT_GHOSTTY=0; WANT_ALACRITTY=0; WANT_WEZTERM=0; DO_ALACRITTY=1; DO_WEZTERM=1; STATUS=0; WANT_SIMPLE=""; SIMPLE="foot konsole zellij tmux xresources"; APPLY=0; LIST=0; FLAGS=0; FAIL=0
+REPO_TARBALL="${EVA_NOCTIS_URL:-https://github.com/RavenEibu/eva-noctis/archive/${EVA_NOCTIS_REF:-refs/heads/main}.tar.gz}"  # EVA_NOCTIS_URL: for mirrors and tests
+EXPLICIT=0; ACTION=""; DO_KITTY=1; DO_GHOSTTY=1; WANT_KITTY=0; WANT_GHOSTTY=0; WANT_ALACRITTY=0; WANT_WEZTERM=0; DO_ALACRITTY=1; DO_WEZTERM=1; STATUS=0; DRY=0; WANT_SIMPLE=""; SIMPLE="foot konsole zellij tmux xresources"; APPLY=0; LIST=0; FLAGS=0; FAIL=0
 DARK="EVA-01"; LIGHT="EVA-00"
 
 while [ $# -gt 0 ]; do
@@ -36,12 +40,25 @@ while [ $# -gt 0 ]; do
     --foot|--konsole|--zellij|--tmux|--xresources) WANT_SIMPLE="$WANT_SIMPLE ${1#--}"; EXPLICIT=1 ;;
     --list) LIST=1 ;;
     --status) STATUS=1 ;;
-    -h|--help) sed -n '2,22p' "$0" 2>/dev/null | sed 's/^# \{0,1\}//'; exit 0 ;;
+    --dry-run) DRY=1 ;;
+    -h|--help) sed -n '2,26p' "$0" 2>/dev/null | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "Unknown option: $1 (use --help)" >&2; exit 1 ;;
   esac
   shift
 done
 DARK="${DARK#Noctis-}"; LIGHT="${LIGHT#Noctis-}"
+# --dry-run: shadow the commands that change files so nothing is written
+if [ "$DRY" = 1 ]; then
+  echo "(dry run: no file will be changed)"
+  mkdir() { echo "[dry-run] create ${!#}"; }
+  cp()    { echo "[dry-run] copy $(( $# - 1 )) file(s) to ${!#}"; }
+  mv()    { echo "[dry-run] move $1 -> $2"; }
+  rm()    { local a n=0; for a in "$@"; do case "$a" in -*) ;; *) n=$((n+1)) ;; esac; done; echo "[dry-run] remove $n path(s) matching ${!#}"; }
+  touch() { echo "[dry-run] touch $1"; }
+  TMPCFG=/dev/null
+else
+  TMPCFG=""
+fi
 # --kitty and --ghostty add up: with both (or neither) every terminal is in scope
 if [ "$EXPLICIT" = 1 ]; then DO_KITTY=$WANT_KITTY; DO_GHOSTTY=$WANT_GHOSTTY; DO_ALACRITTY=$WANT_ALACRITTY; DO_WEZTERM=$WANT_WEZTERM; fi
 
@@ -54,9 +71,16 @@ if [ -n "$SELF" ] && [ -f "$SELF" ]; then
 fi
 if [ -z "$SRC" ] && [ "$STATUS" = 0 ]; then
   command -v curl >/dev/null || { echo "curl is required to download the themes" >&2; exit 1; }
-  TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
+  TMP="$(mktemp -d)"; trap 'command rm -rf "$TMP"' EXIT
   echo "Downloading themes..."
-  curl -fsSL "$REPO_TARBALL" | tar -xz -C "$TMP"
+  curl -fsSL "$REPO_TARBALL" -o "$TMP/themes.tar.gz"
+  if [ -n "${EVA_NOCTIS_SHA256:-}" ]; then
+    if command -v sha256sum >/dev/null; then GOT="$(sha256sum "$TMP/themes.tar.gz" | cut -d' ' -f1)"
+    else GOT="$(shasum -a 256 "$TMP/themes.tar.gz" | cut -d' ' -f1)"; fi
+    [ "$GOT" = "$EVA_NOCTIS_SHA256" ] || { echo "Checksum mismatch: expected $EVA_NOCTIS_SHA256, got $GOT" >&2; exit 1; }
+    echo "Checksum OK"
+  fi
+  tar -xz -C "$TMP" -f "$TMP/themes.tar.gz"
   SRC="$(echo "$TMP"/eva-noctis-*/terminals)"
 fi
 
@@ -149,17 +173,17 @@ apply_ghostty() {
     [ -f "$SRC/ghostty/themes/Noctis-$f" ] || { echo "Ghostty: unknown theme '$f' (see --list)" >&2; return 1; }
   done
   CFG="$(ghostty_config)"; touch "$CFG"; backup "$CFG"
-  { grep -v '^[[:space:]]*theme[[:space:]]*=' "$CFG" || true; } > "$CFG.tmp"
-  printf 'theme = light:Noctis-%s,dark:Noctis-%s\n' "$LIGHT" "$DARK" >> "$CFG.tmp"
+  { grep -v '^[[:space:]]*theme[[:space:]]*=' "$CFG" || true; } > "${TMPCFG:-$CFG.tmp}"
+  printf 'theme = light:Noctis-%s,dark:Noctis-%s\n' "$LIGHT" "$DARK" >> "${TMPCFG:-$CFG.tmp}"
   mv "$CFG.tmp" "$CFG"
   echo "Ghostty: theme = light:Noctis-$LIGHT,dark:Noctis-$DARK. Reload with Ctrl+Shift+,"
 }
 uninstall_ghostty() {
   CFG="$(ghostty_config)"
   if [ -f "$CFG" ] && grep -q '^[[:space:]]*theme[[:space:]]*=.*Noctis-' "$CFG"; then
-    grep -v '^[[:space:]]*theme[[:space:]]*=.*Noctis-' "$CFG" > "$CFG.tmp" || true
+    grep -v '^[[:space:]]*theme[[:space:]]*=.*Noctis-' "$CFG" > "${TMPCFG:-$CFG.tmp}" || true
     # bring back the theme line you had before, if the backup has one
-    if [ -f "$CFG.pre-eva-noctis" ]; then grep '^[[:space:]]*theme[[:space:]]*=' "$CFG.pre-eva-noctis" | grep -v 'Noctis-' >> "$CFG.tmp" || true; fi
+    if [ -f "$CFG.pre-eva-noctis" ]; then grep '^[[:space:]]*theme[[:space:]]*=' "$CFG.pre-eva-noctis" | grep -v 'Noctis-' >> "${TMPCFG:-$CFG.tmp}" || true; fi
     mv "$CFG.tmp" "$CFG"; rm -f "$CFG.pre-eva-noctis"
     echo "Ghostty: removed the Noctis 'theme =' line from $CFG"
   fi

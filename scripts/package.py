@@ -134,10 +134,10 @@ def validate_contrast(key, theme, palette):
         scopes = [scopes] if isinstance(scopes, str) else scopes
         comment = "comment" in scopes
         need(f"token {scopes[:1]}", fg, bg, 7.0 if hc else 4.0 if comment else 4.5)
+    ansi_min = runpy.run_path(str(ROOT / "scripts/build.py"))["ansi_min"]
     for index, name in enumerate(ANSI + tuple("Bright" + n for n in ANSI)):
-        if index in (0, 7, 15) and not hc:
-            continue  # black/white are surfaces, not text colors
-        need(f"terminal ansi {index}", colors["terminal.ansi" + name], colors["terminal.background"], 7.0 if hc else 3.0)
+        if ansi_min(palette, index):  # black on light and white on dark themes are surfaces, not text colors
+            need(f"terminal ansi {index}", colors["terminal.ansi" + name], colors["terminal.background"], ansi_min(palette, index))
 
 
 def validate_source(pkg):
