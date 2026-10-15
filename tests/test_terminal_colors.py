@@ -41,6 +41,33 @@ class AnsiContrastTests(unittest.TestCase):
             self.assertGreaterEqual(distance, A["MIN_NORMAL"], f"{key}: ANSI {i} and {j} look alike")
 
 
+class ColorVisionTests(unittest.TestCase):
+    def test_every_theme_has_a_rating_for_each_type(self):
+        for key, palette in B["P"].items():
+            rating = A["assess"](palette)
+            self.assertEqual(set(rating), {"protanopia", "deuteranopia", "tritanopia"}, key)
+            for kind, value in rating.items():
+                self.assertIn(value["level"], (0, 1, 2), f"{key} {kind}")
+                self.assertEqual(value["level"], min(value["levels"]), f"{key} {kind}")
+
+    def test_simulation_keeps_neutral_colors_neutral(self):
+        for kind in A["CVD"]:
+            for gray in ("#000000", "#808080", "#ffffff"):
+                seen = A["simulate"](gray, kind)
+                channels = [int(seen[i:i + 2], 16) for i in (1, 3, 5)]
+                self.assertLessEqual(max(channels) - min(channels), 3, f"{kind} {gray} -> {seen}")
+
+    def test_red_and_green_are_confusable_for_protan_and_deutan_but_not_tritan(self):
+        red, green = "#d42a1f", "#0f9d58"
+        for kind in ("protanopia", "deuteranopia"):
+            self.assertLess(A["distance"](A["simulate"](red, kind), A["simulate"](green, kind)), A["distance"](red, green) / 2, kind)
+        self.assertGreater(A["distance"](A["simulate"](red, "tritanopia"), A["simulate"](green, "tritanopia")), 40)
+
+    def test_readme_table_and_details_are_current(self):
+        self.assertTrue(A["readme_current"](), "run: python3 scripts/accessibility.py --write")
+        self.assertEqual(A["DETAILS"].read_text(), A["details"](), "run: python3 scripts/accessibility.py --write")
+
+
 class PaletteDataTests(unittest.TestCase):
     def load(self, text):
         import tempfile

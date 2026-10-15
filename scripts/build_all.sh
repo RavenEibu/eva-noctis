@@ -17,6 +17,7 @@ fi
 
 python3 scripts/build.py "$NOCTIS_SRC/themes" >/dev/null
 python3 scripts/terminals.py "$NOCTIS_SRC/themes" >/dev/null
+python3 scripts/accessibility.py --write
 python3 -m unittest discover -s tests
 python3 scripts/package.py
 

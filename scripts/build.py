@@ -162,12 +162,18 @@ def ansi_colors(p):
 
 ANSI = ["Black", "Red", "Green", "Yellow", "Blue", "Magenta", "Cyan", "White"]
 
+def token_colors(p):
+    """Colores de sintaxis finales: texto 4.5:1 (comentarios 4:1, alto contraste 7:1) contra el fondo."""
+    light, hc = p["type"] == "light", p.get("hc", False)
+    mn = 7.0 if hc else 4.5
+    return {k: (v if k == "text" else ensure(v, p["bg"], 4.0 if (k == "comment" and not hc) else mn, light))
+            for k, v in p["tokens"].items()}
+
 def build(key, p):
     light = p["type"] == "light"
     hc = p.get("hc", False)
     mn = 7.0 if hc else 4.5
-    p["tokens"] = {k: (v if k in ("text",) else ensure(v, p["bg"], 4.0 if (k == "comment" and not hc) else mn, light))
-                   for k, v in p["tokens"].items()}
+    p["tokens"] = token_colors(p)
     p["ansi"] = ansi_colors(p)
     base = json.loads((SRC / f"{p['base']}.json").read_text())
     t = make_transform(p)(base)
