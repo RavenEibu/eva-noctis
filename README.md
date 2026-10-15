@@ -124,7 +124,7 @@ The same palettes are available as [kitty](https://sw.kovidgoyal.net/kitty/) and
 curl -fsSL https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/terminals/install.sh | bash
 ```
 
-For scripts there are flags: `--install` / `--uninstall`, `--kitty` / `--ghostty` / `--alacritty` / `--wezterm` / `--foot` / `--konsole` / `--zellij` / `--tmux` / `--xresources` (combine as many as you want), `--apply`, `--dark EVA-13 --light EVA-01-Light`, `--list` and `--status` (what is installed and which pair is active). The interactive menu covers kitty and Ghostty; the other terminals are installed with their flags, and for those `--apply` only prints the lines to add to your config instead of editing it. To install from a tag or commit instead of `main`, set `EVA_NOCTIS_REF` (for example `EVA_NOCTIS_REF=v0.8.1`). Existing configs are backed up as `*.pre-eva-noctis`. The same script is bundled with the extension: `bash ~/.vscode/extensions/raveneibu.eva-noctis-*/terminals/install.sh`.
+For scripts there are flags: `--install` / `--uninstall`, `--kitty` / `--ghostty` / `--alacritty` / `--wezterm` / `--foot` / `--konsole` / `--zellij` / `--tmux` / `--xresources` (combine as many as you want), `--apply`, `--dark EVA-13 --light EVA-01-Light`, `--list` and `--status` (what is installed and which pair is active). The interactive menu covers kitty and Ghostty; the other terminals are installed with their flags, and for those `--apply` only prints the lines to add to your config instead of editing it. To install from a tag or commit instead of `main`, set `EVA_NOCTIS_REF` (for example `EVA_NOCTIS_REF=v0.9.0`); to verify the download, also set `EVA_NOCTIS_SHA256` (each release publishes a `SHA256SUMS` file and a zip with only the terminal themes). `--dry-run` prints what would change without touching any file. Existing configs are backed up as `*.pre-eva-noctis`. The same script is bundled with the extension: `bash ~/.vscode/extensions/raveneibu.eva-noctis-*/terminals/install.sh`.
 
 **Manual install: kitty**
 
@@ -168,7 +168,7 @@ All of them are generated from the same palettes and checked against the VS Code
 
 | Terminal | Folder | How to use it |
 | --- | --- | --- |
-| Windows Terminal | `terminals/windows-terminal` | Copy the object inside `"schemes"` to your `settings.json`, then set `"colorScheme": "Noctis (EVA-01)"` in a profile. |
+| Windows Terminal | `terminals/windows-terminal` | Run `powershell -ExecutionPolicy Bypass -File terminals\install.ps1` (adds all 28 schemes as a fragment, no admin rights, `-DryRun` and `-Uninstall` available), then set `"colorScheme": "Noctis (EVA-01)"` in a profile. Or paste one object from `themes/` into the `"schemes"` of `settings.json`. |
 | iTerm2 | `terminals/iterm2` | Preferences > Profiles > Colors > Color Presets > Import, then pick `Noctis-EVA-01`. |
 | foot (1.24+) | `terminals/foot` | `include=~/.config/foot/themes/Noctis-EVA-01.ini` in `foot.ini`. |
 | Konsole | `terminals/konsole` | Copy to `~/.local/share/konsole/`, then choose it in Edit Current Profile > Appearance. |

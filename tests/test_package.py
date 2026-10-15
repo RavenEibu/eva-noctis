@@ -109,6 +109,15 @@ class PackageValidationTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("warp theme is malformed", result.stderr)
 
+    def test_windows_fragment_must_match_schemes(self):
+        path = self.root / "terminals/windows-terminal/EvaNoctis.fragment.json"
+        fragment = json.loads(path.read_text())
+        fragment["schemes"][0]["red"] = "#010203"
+        path.write_text(json.dumps(fragment))
+        result = self.package()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Windows Terminal fragment differs", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

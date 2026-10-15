@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Genera los temas de terminal (kitty, Ghostty, Alacritty, WezTerm y los de scripts/formats.py) desde las mismas paletas que la extension de VS Code."""
-import importlib.util, sys
+import importlib.util, json, sys
 from pathlib import Path
 sys.argv = [sys.argv[0], sys.argv[1] if len(sys.argv) > 1 else "../noctis-src/themes"]
 spec = importlib.util.spec_from_file_location("build", Path(__file__).with_name("build.py"))
@@ -78,6 +78,7 @@ def wezterm(name, slug, p, d):
          "[metadata]", f'name = "{slug}"', 'author = "RavenEibu"', 'origin_url = "https://github.com/RavenEibu/eva-noctis"']
     return "\n".join(o) + "\n"
 
+schemes = []
 for key, p in b.P.items():
     d = data(p)
     slug = p.get("slug") or ("Noctis-" + key.upper().replace("EVA-MARK06", "EVA-Mark06"))
@@ -88,4 +89,8 @@ for key, p in b.P.items():
     (WEZTERM / f"{slug}.toml").write_text(wezterm(label, slug, p, d))
     for folder, suffix, render in F.FORMATS:
         (OUT / folder / "themes" / f"{slug}{suffix}").write_text(render(label, slug, p, d, dict(blend=blend, on=on, contrast=b.contrast)))
+    schemes.append(json.loads((OUT / "windows-terminal" / "themes" / f"{slug}.json").read_text())["schemes"][0])
     print(slug)
+
+# Windows Terminal: un unico fragmento con todos los esquemas (se instala con install.ps1)
+(OUT / "windows-terminal" / "EvaNoctis.fragment.json").write_text(json.dumps({"schemes": schemes}, indent=2) + "\n")

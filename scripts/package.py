@@ -227,6 +227,11 @@ def validate_source(pkg):
             if palette.get("oled") and folder != "tmux":
                 require(background.lower() == "#000000", f"{folder} OLED background is not true black: {key}")
 
+    fragment = json.loads((ROOT / "terminals/windows-terminal/EvaNoctis.fragment.json").read_text())["schemes"]
+    individual = [json.loads(p.read_text())["schemes"][0] for p in sorted((ROOT / "terminals/windows-terminal/themes").glob("*.json"))]
+    require(sorted(fragment, key=lambda s: s["name"]) == sorted(individual, key=lambda s: s["name"]),
+            "Windows Terminal fragment differs from the individual schemes")
+
     for terminal, suffix in (("kitty", ".conf"), ("ghostty", ""), ("alacritty", ".toml"), ("wezterm", ".toml"), *EXTRA_TERMINALS.items()):
         actual = {p.name for p in (ROOT / "terminals" / terminal / "themes").iterdir() if p.is_file()}
         wanted = {theme_slug(key, palette) + suffix for key, palette in palettes.items()}
@@ -236,7 +241,8 @@ def validate_source(pkg):
 def package_files():
     required = [
         "package.json", "README.md", "CHANGELOG.md", "LICENSE.txt",
-        "NOCTIS-LICENSE.md", "icon.png", "terminals/install.sh",
+        "NOCTIS-LICENSE.md", "icon.png", "terminals/install.sh", "terminals/install.ps1",
+        "terminals/windows-terminal/EvaNoctis.fragment.json",
     ]
     files = required + [str(p.relative_to(ROOT)) for folder in (
         "themes", "images", "terminals/kitty/themes", "terminals/ghostty/themes",

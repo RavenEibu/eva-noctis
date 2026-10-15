@@ -1,6 +1,11 @@
 # Changelog
 
 ## Unreleased
+- ANSI black is a readable dark gray (at least 1.5:1) on dark themes and ANSI white a neutral gray (3.5:1, bright white 3:1) on light themes; before they were close to invisible (about 1.1:1). `scripts/accessibility.py` reports ANSI colors that look alike (some themes confuse blue and violet with deuteranopia).
+- `install.sh --dry-run`, and `EVA_NOCTIS_SHA256` to verify the downloaded archive.
+- `.vscodeignore` was empty, so publishing with `vsce` would have shipped `scripts/`, `tests/` and `.github/`; it now excludes them, and `scripts/check_vsce.sh` (run in CI) compares the files `vsce` would ship with `package.py`'s.
+- Windows Terminal: `terminals/install.ps1` installs all 28 schemes as a fragment (no admin rights, `-DryRun`, `-Uninstall`).
+- Release workflow (tag `v*`) publishes the VSIX, a zip with only the terminal themes and `SHA256SUMS`; CI also loads the themes with tmux and kitty (`scripts/smoke_terminals.sh`).
 - New themes for Windows Terminal, iTerm2, foot, Konsole, Xresources (xterm/urxvt/st), tmux, Zellij, Termux and Warp, for all 28 variants. Packaging compares their background, foreground and ANSI colors with the VS Code terminal. `install.sh` installs foot, Konsole, Zellij, tmux and Xresources with `--foot`, `--konsole`, `--zellij`, `--tmux` and `--xresources`.
 - New Alacritty (`terminals/alacritty`) and WezTerm (`terminals/wezterm`) themes for all 28 variants, generated from the same palettes. `install.sh` handles them with `--alacritty` / `--wezterm`.
 - `install.sh --status` shows what is installed and the active pair; Ghostty's `config.ghostty` is used when it is the config file you have.
