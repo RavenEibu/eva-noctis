@@ -1,0 +1,17 @@
+// Noctis (Geofront)
+// EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+themes {
+    noctis-geofront {
+        fg "#123326"
+        bg "#f0faf4"
+        black "#1f3a2e"
+        red "#c81e3a"
+        green "#0f8a4f"
+        yellow "#b25e10"
+        blue "#1a7fc0"
+        magenta "#8a4fc0"
+        orange "#1f9d6a"
+        cyan "#0a8f9a"
+        white "#6d8b7a"
+    }
+}

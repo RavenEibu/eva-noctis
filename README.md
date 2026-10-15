@@ -114,9 +114,9 @@ You can override any color without forking the theme. For example, to change the
 
 Syntax colors can be adjusted the same way with `editor.tokenColorCustomizations`.
 
-## Terminal themes (kitty and Ghostty)
+## Terminal themes
 
-The same palettes are available as [kitty](https://sw.kovidgoyal.net/kitty/) and [Ghostty](https://ghostty.org/) themes in the [`terminals`](terminals) folder of the repository (also bundled inside the extension). Each one defines the background, foreground, cursor, selection, tabs (kitty) and the 16 ANSI colors, so your terminal matches your editor.
+The same palettes are available as [kitty](https://sw.kovidgoyal.net/kitty/) and [Ghostty](https://ghostty.org/) themes, plus the formats in the table below, in the [`terminals`](terminals) folder of the repository (also bundled inside the extension). Each one defines the background, foreground, cursor, selection, tabs (kitty) and the 16 ANSI colors, so your terminal matches your editor.
 
 **Interactive installer** (Linux and macOS). It asks which terminal you use (kitty, Ghostty or both), offers to activate a dark/light pair (EVA-01 / EVA-00 by default), and if the themes are already installed it also offers to uninstall them, restoring your previous config:
 
@@ -124,7 +124,7 @@ The same palettes are available as [kitty](https://sw.kovidgoyal.net/kitty/) and
 curl -fsSL https://raw.githubusercontent.com/RavenEibu/eva-noctis/main/terminals/install.sh | bash
 ```
 
-For scripts there are flags: `--install` / `--uninstall`, `--kitty` / `--ghostty`, `--apply`, `--dark EVA-13 --light EVA-01-Light` and `--list`. Existing configs are backed up as `*.pre-eva-noctis`. The same script is bundled with the extension: `bash ~/.vscode/extensions/raveneibu.eva-noctis-*/terminals/install.sh`.
+For scripts there are flags: `--install` / `--uninstall`, `--kitty` / `--ghostty` / `--alacritty` / `--wezterm` / `--foot` / `--konsole` / `--zellij` / `--tmux` / `--xresources` (combine as many as you want), `--apply`, `--dark EVA-13 --light EVA-01-Light`, `--list` and `--status` (what is installed and which pair is active). The interactive menu covers kitty and Ghostty; the other terminals are installed with their flags, and for those `--apply` only prints the lines to add to your config instead of editing it. To install from a tag or commit instead of `main`, set `EVA_NOCTIS_REF` (for example `EVA_NOCTIS_REF=v0.9.0`); to verify the download, also set `EVA_NOCTIS_SHA256` (each release publishes a `SHA256SUMS` file and a zip with only the terminal themes). `--dry-run` prints what would change without touching any file. Existing configs are backed up as `*.pre-eva-noctis`. The same script is bundled with the extension: `bash ~/.vscode/extensions/raveneibu.eva-noctis-*/terminals/install.sh`.
 
 **Manual install: kitty**
 
@@ -142,28 +142,82 @@ mkdir -p ~/.config/ghostty/themes
 cp terminals/ghostty/themes/* ~/.config/ghostty/themes/
 ```
 
-Then set, for example, `theme = light:Noctis-EVA-00,dark:Noctis-EVA-01` in `~/.config/ghostty/config`.
+Then set, for example, `theme = light:Noctis-EVA-00,dark:Noctis-EVA-01` in `~/.config/ghostty/config` (or `config.ghostty`).
+
+**Manual install: Alacritty** (0.13+, TOML)
+
+```bash
+mkdir -p ~/.config/alacritty/themes
+cp terminals/alacritty/themes/*.toml ~/.config/alacritty/themes/
+```
+
+Then add `[general]` with `import = ["~/.config/alacritty/themes/Noctis-EVA-01.toml"]` to `alacritty.toml` (before 0.14 use a top-level `import`).
+
+**Manual install: WezTerm**
+
+```bash
+mkdir -p ~/.config/wezterm/colors
+cp terminals/wezterm/themes/*.toml ~/.config/wezterm/colors/
+```
+
+Then set `config.color_scheme = "Noctis-EVA-01"` in `wezterm.lua`, adding `config.color_scheme_dirs = { wezterm.config_dir .. "/colors" }` if the scheme is not found.
+
+**More terminals**
+
+All of them are generated from the same palettes and checked against the VS Code colors when the extension is packaged.
+
+| Terminal | Folder | How to use it |
+| --- | --- | --- |
+| Windows Terminal | `terminals/windows-terminal` | Run `powershell -ExecutionPolicy Bypass -File terminals\install.ps1` (adds all 28 schemes as a fragment, no admin rights, `-DryRun` and `-Uninstall` available), then set `"colorScheme": "Noctis (EVA-01)"` in a profile. Or paste one object from `themes/` into the `"schemes"` of `settings.json`. |
+| iTerm2 | `terminals/iterm2` | Preferences > Profiles > Colors > Color Presets > Import, then pick `Noctis-EVA-01`. |
+| foot (1.24+) | `terminals/foot` | `include=~/.config/foot/themes/Noctis-EVA-01.ini` in `foot.ini`. |
+| Konsole | `terminals/konsole` | Copy to `~/.local/share/konsole/`, then choose it in Edit Current Profile > Appearance. |
+| Xresources / xterm / urxvt / st | `terminals/xresources` | `#include "/path/Noctis-EVA-01"` in `~/.Xresources`, then `xrdb -merge ~/.Xresources`. |
+| tmux | `terminals/tmux` | `source-file ~/.config/tmux/themes/Noctis-EVA-01.conf` (status bar, panes, messages, selection). |
+| Zellij | `terminals/zellij` | Copy to `~/.config/zellij/themes/` and set `theme "noctis-eva-01"` in `config.kdl`. |
+| Termux | `terminals/termux` | Copy a file to `~/.termux/colors.properties` and run `termux-reload-settings`. |
+| Warp | `terminals/warp` | Copy to `~/.warp/themes/` (macOS/Linux). |
 
 Theme file names follow the pattern `Noctis-EVA-01`, `Noctis-EVA-01-Berserk`, `Noctis-MAGI`, `Noctis-NERV-HC`, and so on.
+
+## Stability and support
+
+From 1.0 the public surface is: the theme names (`Noctis (EVA-01)`, ...), the terminal theme file names (`Noctis-EVA-01`, ...), the `install.sh` / `install.ps1` flags and the `EVA_NOCTIS_*` variables. Renaming or removing any of them is a major version; adding a theme or format is a minor one; color tweaks and fixes are patches.
+
+Terminal formats by how they were checked:
+
+| Level | Formats |
+| --- | --- |
+| Loaded by the real application in every release | VS Code, kitty, Ghostty, Alacritty, WezTerm, foot, tmux, Zellij, xrdb (Xresources), Konsole (background/foreground) |
+| Checked against the vendor schema or format only | Windows Terminal, iTerm2, Warp, Termux (best effort) |
+
+macOS support of `install.sh` is also best effort (it only uses bash 3.2 features, but it is not tested there).
 
 ## Development
 
 Themes are generated from the Noctis base themes by a small script, so a palette change is one edit and a rebuild:
 
 ```bash
+bash scripts/build_all.sh                          # clones Noctis (pinned), regenerates, tests and packages
+bash scripts/build_all.sh --check                  # same, and fails if generated files are out of date (used by CI)
+```
+
+Or step by step:
+
+```bash
 git clone https://github.com/liviuschera/Noctis.git ../noctis-src
 python3 scripts/build.py ../noctis-src/themes      # themes/*.json
-python3 scripts/terminals.py ../noctis-src/themes  # terminals/kitty and terminals/ghostty
+python3 scripts/terminals.py ../noctis-src/themes  # terminals/<terminal>/themes
 python3 scripts/screenshots.py                     # images/*.png (needs Playwright)
 python3 scripts/package.py                         # eva-noctis-<version>.vsix
 ```
 
 Packaging checks every registered VS Code theme against the generated palette,
-its kitty and Ghostty counterparts, and the OLED true-black surfaces. It then
+its terminal counterparts (kitty, Ghostty, Alacritty, WezTerm and every format above), the OLED true-black surfaces and the readability contract (syntax 4.5:1, comments 4:1, high contrast 7:1, status bar and cursor, terminal ANSI colors). It then
 verifies the files inside the VSIX before replacing an existing package. A
 missing or mismatched theme stops packaging with an error.
 
-Palettes live in `scripts/build.py`. Every text color is adjusted automatically to meet its contrast target (4.5:1, or 7:1 for the high contrast themes).
+Palettes are plain data in `scripts/palettes.toml` (a palette can `extends` another and override only what changes, like the OLED and high contrast variants); `scripts/build.py` turns them into the VS Code themes and `scripts/terminals.py` into every terminal theme. Every text color is adjusted automatically to meet its contrast target (4.5:1, or 7:1 for the high contrast themes).
 
 ## Feedback
 

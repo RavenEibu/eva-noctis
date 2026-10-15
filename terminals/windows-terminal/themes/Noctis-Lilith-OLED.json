@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (Lilith OLED)",
+      "foreground": "#eae4dc",
+      "background": "#000000",
+      "cursorColor": "#f2ead8",
+      "selectionBackground": "#5e0913",
+      "black": "#412727",
+      "brightBlack": "#675750",
+      "red": "#ff2d3f",
+      "brightRed": "#ff6470",
+      "green": "#a8d8a0",
+      "brightGreen": "#c8f0c0",
+      "yellow": "#e0a25a",
+      "brightYellow": "#f5c688",
+      "blue": "#6fa0e8",
+      "brightBlue": "#9cc0ff",
+      "purple": "#d89ad8",
+      "brightPurple": "#ecbcec",
+      "cyan": "#7fd8e0",
+      "brightCyan": "#a8eef5",
+      "white": "#e0d8cc",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

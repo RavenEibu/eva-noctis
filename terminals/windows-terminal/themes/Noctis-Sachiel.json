@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (Sachiel)",
+      "foreground": "#e6dcc8",
+      "background": "#0e1218",
+      "cursorColor": "#ff3030",
+      "selectionBackground": "#283648",
+      "black": "#2c3545",
+      "brightBlack": "#556177",
+      "red": "#ff3030",
+      "brightRed": "#ff6a6a",
+      "green": "#7fd6a8",
+      "brightGreen": "#a5e8c4",
+      "yellow": "#f0a050",
+      "brightYellow": "#ffc880",
+      "blue": "#6f9bd0",
+      "brightBlue": "#9dbde8",
+      "purple": "#b59cff",
+      "brightPurple": "#cdb8ff",
+      "cyan": "#6fd0e0",
+      "brightCyan": "#9ae2ee",
+      "white": "#e6dcc8",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

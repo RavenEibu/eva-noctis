@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (EVA-13)",
+      "foreground": "#ddd3f0",
+      "background": "#060310",
+      "cursorColor": "#2bd14a",
+      "selectionBackground": "#371874",
+      "black": "#3a1e69",
+      "brightBlack": "#6549aa",
+      "red": "#e0143a",
+      "brightRed": "#ff4d6a",
+      "green": "#2fd45a",
+      "brightGreen": "#6ae88a",
+      "yellow": "#ff5a1f",
+      "brightYellow": "#ff8a4d",
+      "blue": "#7035d8",
+      "brightBlue": "#9a7cf0",
+      "purple": "#d13fc0",
+      "brightPurple": "#e36fd6",
+      "cyan": "#3ad1b8",
+      "brightCyan": "#7be8d4",
+      "white": "#c9bde6",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+# Only the theme payload ships: themes, previews, terminal themes and installers.
+.github/**
+.cache/**
+dist/**
+scripts/**
+tests/**
+.gitignore
+*.vsix

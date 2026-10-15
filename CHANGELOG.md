@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.9.0
+- ANSI black is a readable dark gray (at least 1.5:1) on dark themes and ANSI white a neutral gray (3.5:1, bright white 3:1) on light themes; before they were close to invisible (about 1.1:1). `scripts/accessibility.py` reports ANSI colors that look alike (some themes confuse blue and violet with deuteranopia).
+- `install.sh --dry-run`, and `EVA_NOCTIS_SHA256` to verify the downloaded archive.
+- `.vscodeignore` was empty, so publishing with `vsce` would have shipped `scripts/`, `tests/` and `.github/`; it now excludes them, and `scripts/check_vsce.sh` (run in CI) compares the files `vsce` would ship with `package.py`'s.
+- Windows Terminal: `terminals/install.ps1` installs all 28 schemes as a fragment (no admin rights, `-DryRun`, `-Uninstall`).
+- Palettes moved from Python code to `scripts/palettes.toml` (generated themes are byte-identical); variants use `extends`.
+- Release workflow (tag `v*`) publishes the VSIX, a zip with only the terminal themes and `SHA256SUMS`; CI also loads the themes with tmux and kitty (`scripts/smoke_terminals.sh`).
+- New themes for Windows Terminal, iTerm2, foot, Konsole, Xresources (xterm/urxvt/st), tmux, Zellij, Termux and Warp, for all 28 variants. Packaging compares their background, foreground and ANSI colors with the VS Code terminal. `install.sh` installs foot, Konsole, Zellij, tmux and Xresources with `--foot`, `--konsole`, `--zellij`, `--tmux` and `--xresources`.
+- New Alacritty (`terminals/alacritty`) and WezTerm (`terminals/wezterm`) themes for all 28 variants, generated from the same palettes. `install.sh` handles them with `--alacritty` / `--wezterm`.
+- `install.sh --status` shows what is installed and the active pair; Ghostty's `config.ghostty` is used when it is the config file you have.
+- Packaging now enforces the readability contract (syntax 4.5:1, comments 4:1, high contrast 7:1, status bar, cursor and ANSI colors) and checks Alacritty/WezTerm parity.
+- `scripts/build_all.sh` (pinned Noctis base, `--check` mode) and a GitHub Actions workflow that fails when generated files are out of date.
+- Terminal bright black (ANSI 8) now keeps at least 3:1 contrast against the background in every theme (it is used for comments and suggestions).
+- Noctis (EVA Mark.06 High Contrast): bright white (ANSI 15) is no longer white on white and meets 7:1.
+- Cursor color keeps at least 3:1 contrast in every theme (EVA-00, EVA-02 Light and EVA-08 Light were lower); kitty/Ghostty selections are now visibly distinct from the background while keeping readable text.
+- kitty themes carry `author`, `license`, `upstream` and `blurb` metadata.
+- `terminals/install.sh`: `EVA_NOCTIS_REF` pins the downloaded tag or commit instead of `main`.
+- `terminals/install.sh`: `--kitty --ghostty` now installs both; an unknown theme in `--apply` exits with an error before installing; re-applying a pair no longer backs up an EVA Noctis theme as if it were your original, and uninstall cleans leftover backups.
+
 ## 0.8.1
 - VSIX packaging now rejects missing or mismatched editor and terminal themes, checks OLED true-black surfaces, and verifies the final archive before replacing an existing package.
 

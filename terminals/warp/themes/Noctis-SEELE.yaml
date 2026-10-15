@@ -1,0 +1,26 @@
+# Noctis (SEELE)
+# EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+name: 'Noctis (SEELE)'
+accent: '#5b6cff'
+background: '#05060d'
+foreground: '#d5dcf5'
+details: darker
+terminal_colors:
+  normal:
+    black: '#272c5c'
+    red: '#ff3b30'
+    green: '#4be0c6'
+    yellow: '#ffb454'
+    blue: '#6c8cff'
+    magenta: '#b48cff'
+    cyan: '#7ad7ff'
+    white: '#d5dcf5'
+  bright:
+    black: '#52598f'
+    red: '#ff6a60'
+    green: '#86f0dc'
+    yellow: '#ffcf85'
+    blue: '#9fb4ff'
+    magenta: '#cdb0ff'
+    cyan: '#a6e6ff'
+    white: '#ffffff'

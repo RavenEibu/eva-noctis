@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (Geofront)",
+      "foreground": "#123326",
+      "background": "#f0faf4",
+      "cursorColor": "#2a8fd0",
+      "selectionBackground": "#8fdcb0",
+      "black": "#1f3a2e",
+      "brightBlack": "#5a7a6a",
+      "red": "#c81e3a",
+      "brightRed": "#e5455f",
+      "green": "#0f8a4f",
+      "brightGreen": "#2ba066",
+      "yellow": "#b25e10",
+      "brightYellow": "#c97c17",
+      "blue": "#1a7fc0",
+      "brightBlue": "#3293ee",
+      "purple": "#8a4fc0",
+      "brightPurple": "#a870d8",
+      "cyan": "#0a8f9a",
+      "brightCyan": "#2a9da4",
+      "white": "#6d8b7a",
+      "brightWhite": "#8f8f8f"
+    }
+  ]
+}

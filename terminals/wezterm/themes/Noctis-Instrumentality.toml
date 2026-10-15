@@ -1,0 +1,29 @@
+# Noctis (Instrumentality)
+# EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+
+[colors]
+foreground = "#3a0f1d"
+background = "#fdf0f2"
+cursor_bg = "#b04fc0"
+cursor_fg = "#fdf0f2"
+cursor_border = "#b04fc0"
+selection_fg = "#3a0f1d"
+selection_bg = "#f6b8c4"
+ansi = ["#3a1a26", "#d4142a", "#1f8a6a", "#b86a00", "#5a4fd0", "#b0308a", "#0e7f96", "#95797f"]
+brights = ["#7a5060", "#f0455f", "#389b7b", "#c57917", "#7f78f0", "#cc55b0", "#2897ab", "#8c8c8c"]
+
+[colors.tab_bar]
+background = "#f7dfe4"
+
+[colors.tab_bar.active_tab]
+bg_color = "#d4142a"
+fg_color = "#ffffff"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#fdf0f2"
+fg_color = "#b0308a"
+
+[metadata]
+name = "Noctis-Instrumentality"
+author = "RavenEibu"
+origin_url = "https://github.com/RavenEibu/eva-noctis"

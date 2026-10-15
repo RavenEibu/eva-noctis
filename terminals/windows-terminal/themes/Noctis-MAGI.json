@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (MAGI)",
+      "foreground": "#ffc27a",
+      "background": "#0a0604",
+      "cursorColor": "#ffb000",
+      "selectionBackground": "#5c2703",
+      "black": "#452a18",
+      "brightBlack": "#7c5636",
+      "red": "#ff2a2a",
+      "brightRed": "#ff5c4d",
+      "green": "#3dffa8",
+      "brightGreen": "#7dffc4",
+      "yellow": "#ff9f1a",
+      "brightYellow": "#ffc247",
+      "blue": "#4d9bff",
+      "brightBlue": "#85bbff",
+      "purple": "#c96bff",
+      "brightPurple": "#dd9bff",
+      "cyan": "#19d3c5",
+      "brightCyan": "#66eee0",
+      "white": "#e8cfae",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

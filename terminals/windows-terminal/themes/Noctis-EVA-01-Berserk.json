@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (EVA-01 Berserk)",
+      "foreground": "#eee4f7",
+      "background": "#07030a",
+      "cursorColor": "#e6ff00",
+      "selectionBackground": "#343508",
+      "black": "#3c1f5d",
+      "brightBlack": "#6c4c98",
+      "red": "#ff2a3a",
+      "brightRed": "#ff5a66",
+      "green": "#9cff2e",
+      "brightGreen": "#c4ff6a",
+      "yellow": "#ffb020",
+      "brightYellow": "#f0ff3a",
+      "blue": "#7035d8",
+      "brightBlue": "#a985ff",
+      "purple": "#ff3d8a",
+      "brightPurple": "#ff7ab0",
+      "cyan": "#40d8c0",
+      "brightCyan": "#7be8d4",
+      "white": "#d5c6e8",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

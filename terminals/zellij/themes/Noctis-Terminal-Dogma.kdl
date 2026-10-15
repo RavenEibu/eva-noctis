@@ -1,0 +1,17 @@
+// Noctis (Terminal Dogma)
+// EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+themes {
+    noctis-terminal-dogma {
+        fg "#cfe3da"
+        bg "#04100f"
+        black "#1c3834"
+        red "#e04545"
+        green "#6fe0b0"
+        yellow "#e0a030"
+        blue "#5ab0e0"
+        magenta "#b58cd6"
+        orange "#1fb5a0"
+        cyan "#3fd0c0"
+        white "#cfe3da"
+    }
+}

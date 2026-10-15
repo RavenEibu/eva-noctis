@@ -1,0 +1,17 @@
+// Noctis (A.T. Field)
+// EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+themes {
+    noctis-at-field {
+        fg "#3a1e0c"
+        bg "#fff6ea"
+        black "#3a2a20"
+        red "#c81e1e"
+        green "#1f8f5f"
+        yellow "#c86a00"
+        blue "#2f6fd0"
+        magenta "#a03fb8"
+        orange "#ff6a00"
+        cyan "#0a8f9a"
+        white "#918171"
+    }
+}

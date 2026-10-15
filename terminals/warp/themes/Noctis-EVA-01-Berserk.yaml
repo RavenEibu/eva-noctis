@@ -1,0 +1,26 @@
+# Noctis (EVA-01 Berserk)
+# EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+name: 'Noctis (EVA-01 Berserk)'
+accent: '#7a2cff'
+background: '#07030a'
+foreground: '#eee4f7'
+details: darker
+terminal_colors:
+  normal:
+    black: '#3c1f5d'
+    red: '#ff2a3a'
+    green: '#9cff2e'
+    yellow: '#ffb020'
+    blue: '#7035d8'
+    magenta: '#ff3d8a'
+    cyan: '#40d8c0'
+    white: '#d5c6e8'
+  bright:
+    black: '#6c4c98'
+    red: '#ff5a66'
+    green: '#c4ff6a'
+    yellow: '#f0ff3a'
+    blue: '#a985ff'
+    magenta: '#ff7ab0'
+    cyan: '#7be8d4'
+    white: '#ffffff'

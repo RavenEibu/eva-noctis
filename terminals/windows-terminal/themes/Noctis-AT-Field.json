@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (A.T. Field)",
+      "foreground": "#3a1e0c",
+      "background": "#fff6ea",
+      "cursorColor": "#d84a00",
+      "selectionBackground": "#ffbe79",
+      "black": "#3a2a20",
+      "brightBlack": "#7a6252",
+      "red": "#c81e1e",
+      "brightRed": "#e04a3a",
+      "green": "#1f8f5f",
+      "brightGreen": "#3aa174",
+      "yellow": "#c86a00",
+      "brightYellow": "#e16e00",
+      "blue": "#2f6fd0",
+      "brightBlue": "#558cf0",
+      "purple": "#a03fb8",
+      "brightPurple": "#bd60d4",
+      "cyan": "#0a8f9a",
+      "brightCyan": "#2a9da8",
+      "white": "#918171",
+      "brightWhite": "#8f8f8f"
+    }
+  ]
+}

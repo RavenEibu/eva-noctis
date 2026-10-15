@@ -1,0 +1,29 @@
+# Noctis (NERV High Contrast)
+# EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+
+[colors]
+foreground = "#ffffff"
+background = "#000000"
+cursor_bg = "#ffffff"
+cursor_fg = "#000000"
+cursor_border = "#ffffff"
+selection_fg = "#ffffff"
+selection_bg = "#8a000b"
+ansi = ["#9595a9", "#ff616e", "#52e08a", "#ffa726", "#5e9bff", "#d373d2", "#4fd1d9", "#e0e0e6"]
+brights = ["#9595a3", "#ff616d", "#86f0b0", "#ffd166", "#8cb8ff", "#e598e4", "#86e6ec", "#ffffff"]
+
+[colors.tab_bar]
+background = "#000000"
+
+[colors.tab_bar.active_tab]
+bg_color = "#e60012"
+fg_color = "#ffffff"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#000000"
+fg_color = "#7fb2ff"
+
+[metadata]
+name = "Noctis-NERV-HC"
+author = "RavenEibu"
+origin_url = "https://github.com/RavenEibu/eva-noctis"

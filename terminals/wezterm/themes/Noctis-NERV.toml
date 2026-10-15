@@ -1,0 +1,29 @@
+# Noctis (NERV)
+# EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+
+[colors]
+foreground = "#f0f0f0"
+background = "#0c0c0f"
+cursor_bg = "#ffffff"
+cursor_fg = "#0c0c0f"
+cursor_border = "#ffffff"
+selection_fg = "#f0f0f0"
+selection_bg = "#680a14"
+ansi = ["#31313c", "#e60012", "#52e08a", "#ffa726", "#5e9bff", "#d16bd0", "#4fd1d9", "#e0e0e6"]
+brights = ["#5d5d6b", "#ff4d5a", "#86f0b0", "#ffd166", "#8cb8ff", "#e598e4", "#86e6ec", "#ffffff"]
+
+[colors.tab_bar]
+background = "#060608"
+
+[colors.tab_bar.active_tab]
+bg_color = "#e60012"
+fg_color = "#ffffff"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#0c0c0f"
+fg_color = "#7fb2ff"
+
+[metadata]
+name = "Noctis-NERV"
+author = "RavenEibu"
+origin_url = "https://github.com/RavenEibu/eva-noctis"

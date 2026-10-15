@@ -1,0 +1,26 @@
+# Noctis (Sachiel)
+# EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+name: 'Noctis (Sachiel)'
+accent: '#5b7fa8'
+background: '#0e1218'
+foreground: '#e6dcc8'
+details: darker
+terminal_colors:
+  normal:
+    black: '#2c3545'
+    red: '#ff3030'
+    green: '#7fd6a8'
+    yellow: '#f0a050'
+    blue: '#6f9bd0'
+    magenta: '#b59cff'
+    cyan: '#6fd0e0'
+    white: '#e6dcc8'
+  bright:
+    black: '#556177'
+    red: '#ff6a6a'
+    green: '#a5e8c4'
+    yellow: '#ffc880'
+    blue: '#9dbde8'
+    magenta: '#cdb8ff'
+    cyan: '#9ae2ee'
+    white: '#ffffff'

@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """Build a VSIX only when its editor and terminal themes match the manifest."""
 
+import configparser
 import json
+import plistlib
+import re
 import os
 from pathlib import Path
 import runpy
+import tomllib
 import tempfile
 import xml.dom.minidom
 from xml.sax.saxutils import escape as esc
@@ -38,6 +42,102 @@ def color_settings(path, separator):
         key, value = line.split(separator, 1)
         settings[key.strip()] = value.strip()
     return settings
+
+
+HEX = r"#[0-9a-fA-F]{6}"
+
+
+def _hex(r, g, b):
+    return "#%02x%02x%02x" % (round(r * 255), round(g * 255), round(b * 255))
+
+
+def parse_extra(folder, path):
+    """Return (background, foreground, ansi colors) from a terminal theme; ansi may be shorter or None when the format has fewer."""
+    text = path.read_text()
+    if folder == "windows-terminal":
+        scheme = json.loads(text)["schemes"][0]
+        names = ("black", "red", "green", "yellow", "blue", "purple", "cyan", "white")
+        ansi = [scheme[n] for n in names] + [scheme["bright" + n.capitalize()] for n in names]
+        return scheme["background"], scheme["foreground"], ansi
+    if folder == "iterm2":
+        data = plistlib.loads(path.read_bytes())
+        color = lambda k: _hex(data[k]["Red Component"], data[k]["Green Component"], data[k]["Blue Component"])
+        return color("Background Color"), color("Foreground Color"), [color(f"Ansi {i} Color") for i in range(16)]
+    if folder == "foot":
+        ini = configparser.ConfigParser(interpolation=None)
+        ini.read_string(text)
+        section = ini["colors-light" if "colors-light" in ini else "colors-dark"]
+        x = lambda k: "#" + section[k]
+        return x("background"), x("foreground"), [x(f"regular{i}") for i in range(8)] + [x(f"bright{i}") for i in range(8)]
+    if folder == "konsole":
+        ini = configparser.ConfigParser(interpolation=None)
+        ini.optionxform = str
+        ini.read_string(text)
+        c = lambda sec: _hex(*(int(v) / 255 for v in ini[sec]["Color"].split(",")))
+        return c("Background"), c("Foreground"), [c(f"Color{i}") for i in range(8)] + [c(f"Color{i}Intense") for i in range(8)]
+    if folder == "xresources":
+        v = dict(re.findall(rf"^\*\.(\w+):\s*({HEX})", text, re.M))
+        return v["background"], v["foreground"], [v[f"color{i}"] for i in range(16)]
+    if folder == "termux":
+        v = dict(re.findall(rf"^(\w+)=({HEX})", text, re.M))
+        return v["background"], v["foreground"], [v[f"color{i}"] for i in range(16)]
+    if folder == "zellij":
+        v = dict(re.findall(rf'^\s+(\w+) "({HEX})"', text, re.M))
+        names = ("black", "red", "green", "yellow", "blue", "magenta", "cyan", "white")
+        return v["bg"], v["fg"], [v[n] for n in names]
+    if folder == "warp":
+        top = dict(re.findall(rf"^(\w+): '({HEX})'", text, re.M))
+        nested = re.findall(rf"^    (\w+): '({HEX})'", text, re.M)
+        require(len(nested) == 16, "warp must define 16 ANSI colors")
+        return top["background"], top["foreground"], [c for _, c in nested]
+    if folder == "tmux":
+        v = dict(re.findall(r'set -g (status-style) "bg=(#[0-9a-fA-F]{6}),fg=#[0-9a-fA-F]{6}"', text))
+        fg = re.search(r'set -g status-style "bg=#[0-9a-fA-F]{6},fg=(#[0-9a-fA-F]{6})"', text).group(1)
+        return v["status-style"], fg, None
+    raise KeyError(folder)
+
+
+EXTRA_TERMINALS = {  # carpeta -> extension, True si el fondo del tema es el del terminal (tmux usa el de la barra lateral)
+    "windows-terminal": ".json", "iterm2": ".itermcolors", "foot": ".ini", "konsole": ".colorscheme", "xresources": "",
+    "tmux": ".conf", "zellij": ".kdl", "termux": ".properties", "warp": ".yaml",
+}
+
+
+def contrast(a, b):
+    def lum(h):
+        c = [int(h[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+        c = [x / 12.92 if x <= .03928 else ((x + .055) / 1.055) ** 2.4 for x in c]
+        return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]
+    hi, lo = sorted((lum(a), lum(b)), reverse=True)
+    return (hi + .05) / (lo + .05)
+
+
+def validate_contrast(key, theme, palette):
+    """Documented readability contract: syntax 4.5:1, comments 4:1, high-contrast 7:1, plus UI and terminal colors."""
+    colors, hc = theme["colors"], bool(palette.get("hc"))
+    bg, tol = colors["editor.background"], 0.005
+
+    def need(label, fg, background, minimum):
+        if len(fg) > 7:  # alpha channels are not part of the contract
+            return
+        ratio = contrast(fg, background)
+        require(ratio + tol >= minimum, f"{key}: {label} {fg} on {background} has {ratio:.2f}:1, needs {minimum}:1")
+
+    need("editor.foreground", colors["editor.foreground"], bg, 7.0 if hc else 4.5)
+    need("statusBar text", colors["statusBar.foreground"], colors["statusBar.background"], 4.5)
+    need("cursor", colors["editorCursor.foreground"], bg, 7.0 if hc else 3.0)
+    for rule in theme.get("tokenColors", []):
+        fg = rule.get("settings", {}).get("foreground")
+        if not fg:
+            continue
+        scopes = rule.get("scope", [])
+        scopes = [scopes] if isinstance(scopes, str) else scopes
+        comment = "comment" in scopes
+        need(f"token {scopes[:1]}", fg, bg, 7.0 if hc else 4.0 if comment else 4.5)
+    ansi_min = runpy.run_path(str(ROOT / "scripts/build.py"))["ansi_min"]
+    for index, name in enumerate(ANSI + tuple("Bright" + n for n in ANSI)):
+        if ansi_min(palette, index):  # black on light and white on dark themes are surfaces, not text colors
+            need(f"terminal ansi {index}", colors["terminal.ansi" + name], colors["terminal.background"], ansi_min(palette, index))
 
 
 def validate_source(pkg):
@@ -90,8 +190,49 @@ def validate_source(pkg):
             require(k["background"].lower() == g["background"].lower() == "#000000",
                     f"OLED terminal background is not true black: {key}")
         require((ROOT / "images" / f"{key}.png").is_file(), f"missing preview: {key}")
+        validate_contrast(key, theme, palette)
+        for terminal in ("alacritty", "wezterm"):
+            path = ROOT / "terminals" / terminal / "themes" / f"{slug}.toml"
+            require(path.is_file(), f"missing {terminal} theme for {key}")
+            data = tomllib.loads(path.read_text())["colors"]
+            primary = data["primary"] if terminal == "alacritty" else data
+            require(primary["background"].lower() == colors["terminal.background"].lower()
+                    and primary["foreground"].lower() == colors["terminal.foreground"].lower(),
+                    f"{terminal} background/foreground differ: {key}")
+            if terminal == "alacritty":
+                ansi = list(data["normal"].values()) + list(data["bright"].values())
+            else:
+                ansi = data["ansi"] + data["brights"]
+            require(len(ansi) == 16, f"{terminal} must define 16 ANSI colors: {key}")
+            for index, name in enumerate(ANSI + tuple("Bright" + n for n in ANSI)):
+                require(ansi[index].lower() == colors["terminal.ansi" + name].lower(),
+                        f"{terminal} ANSI {index} differs: {key}")
+            if palette.get("oled"):
+                require(primary["background"].lower() == "#000000", f"{terminal} OLED background is not true black: {key}")
+        for folder, suffix in EXTRA_TERMINALS.items():
+            path = ROOT / "terminals" / folder / "themes" / f"{slug}{suffix}"
+            require(path.is_file(), f"missing {folder} theme for {key}")
+            try:
+                background, foreground, ansi = parse_extra(folder, path)
+            except (KeyError, ValueError, AttributeError, IndexError, configparser.Error) as exc:
+                raise ValueError(f"{folder} theme is malformed for {key}: {exc!r}") from exc
+            if folder == "tmux":
+                require(background.lower() == colors["sideBar.background"].lower(), f"tmux status background differs: {key}")
+            else:
+                require(background.lower() == colors["terminal.background"].lower(), f"{folder} background differs: {key}")
+            require(foreground.lower() == colors["terminal.foreground"].lower(), f"{folder} foreground differs: {key}")
+            for index, value in enumerate(ansi or []):
+                name = (ANSI + tuple("Bright" + n for n in ANSI))[index]
+                require(value.lower() == colors["terminal.ansi" + name].lower(), f"{folder} ANSI {index} differs: {key}")
+            if palette.get("oled") and folder != "tmux":
+                require(background.lower() == "#000000", f"{folder} OLED background is not true black: {key}")
 
-    for terminal, suffix in (("kitty", ".conf"), ("ghostty", "")):
+    fragment = json.loads((ROOT / "terminals/windows-terminal/EvaNoctis.fragment.json").read_text())["schemes"]
+    individual = [json.loads(p.read_text())["schemes"][0] for p in sorted((ROOT / "terminals/windows-terminal/themes").glob("*.json"))]
+    require(sorted(fragment, key=lambda s: s["name"]) == sorted(individual, key=lambda s: s["name"]),
+            "Windows Terminal fragment differs from the individual schemes")
+
+    for terminal, suffix in (("kitty", ".conf"), ("ghostty", ""), ("alacritty", ".toml"), ("wezterm", ".toml"), *EXTRA_TERMINALS.items()):
         actual = {p.name for p in (ROOT / "terminals" / terminal / "themes").iterdir() if p.is_file()}
         wanted = {theme_slug(key, palette) + suffix for key, palette in palettes.items()}
         require(actual == wanted, f"{terminal} theme files differ: missing={sorted(wanted - actual)}, extra={sorted(actual - wanted)}")
@@ -100,10 +241,13 @@ def validate_source(pkg):
 def package_files():
     required = [
         "package.json", "README.md", "CHANGELOG.md", "LICENSE.txt",
-        "NOCTIS-LICENSE.md", "icon.png", "terminals/install.sh",
+        "NOCTIS-LICENSE.md", "icon.png", "terminals/install.sh", "terminals/install.ps1",
+        "terminals/windows-terminal/EvaNoctis.fragment.json",
     ]
     files = required + [str(p.relative_to(ROOT)) for folder in (
-        "themes", "images", "terminals/kitty/themes", "terminals/ghostty/themes"
+        "themes", "images", "terminals/kitty/themes", "terminals/ghostty/themes",
+        "terminals/alacritty/themes", "terminals/wezterm/themes",
+        *(f"terminals/{folder}/themes" for folder in EXTRA_TERMINALS),
     ) for p in sorted((ROOT / folder).iterdir()) if p.is_file()]
     for name in files:
         require((ROOT / name).is_file(), f"missing package file: {name}")

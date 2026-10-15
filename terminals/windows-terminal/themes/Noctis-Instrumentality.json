@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (Instrumentality)",
+      "foreground": "#3a0f1d",
+      "background": "#fdf0f2",
+      "cursorColor": "#b04fc0",
+      "selectionBackground": "#f6b8c4",
+      "black": "#3a1a26",
+      "brightBlack": "#7a5060",
+      "red": "#d4142a",
+      "brightRed": "#f0455f",
+      "green": "#1f8a6a",
+      "brightGreen": "#389b7b",
+      "yellow": "#b86a00",
+      "brightYellow": "#c57917",
+      "blue": "#5a4fd0",
+      "brightBlue": "#7f78f0",
+      "purple": "#b0308a",
+      "brightPurple": "#cc55b0",
+      "cyan": "#0e7f96",
+      "brightCyan": "#2897ab",
+      "white": "#95797f",
+      "brightWhite": "#8c8c8c"
+    }
+  ]
+}

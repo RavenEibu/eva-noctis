@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "name": "Noctis (SEELE)",
+      "foreground": "#d5dcf5",
+      "background": "#05060d",
+      "cursorColor": "#ff3b30",
+      "selectionBackground": "#232a62",
+      "black": "#272c5c",
+      "brightBlack": "#52598f",
+      "red": "#ff3b30",
+      "brightRed": "#ff6a60",
+      "green": "#4be0c6",
+      "brightGreen": "#86f0dc",
+      "yellow": "#ffb454",
+      "brightYellow": "#ffcf85",
+      "blue": "#6c8cff",
+      "brightBlue": "#9fb4ff",
+      "purple": "#b48cff",
+      "brightPurple": "#cdb0ff",
+      "cyan": "#7ad7ff",
+      "brightCyan": "#a6e6ff",
+      "white": "#d5dcf5",
+      "brightWhite": "#ffffff"
+    }
+  ]
+}

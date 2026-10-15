@@ -1,0 +1,26 @@
+# Noctis (NERV High Contrast)
+# EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+name: 'Noctis (NERV High Contrast)'
+accent: '#e60012'
+background: '#000000'
+foreground: '#ffffff'
+details: darker
+terminal_colors:
+  normal:
+    black: '#9595a9'
+    red: '#ff616e'
+    green: '#52e08a'
+    yellow: '#ffa726'
+    blue: '#5e9bff'
+    magenta: '#d373d2'
+    cyan: '#4fd1d9'
+    white: '#e0e0e6'
+  bright:
+    black: '#9595a3'
+    red: '#ff616d'
+    green: '#86f0b0'
+    yellow: '#ffd166'
+    blue: '#8cb8ff'
+    magenta: '#e598e4'
+    cyan: '#86e6ec'
+    white: '#ffffff'

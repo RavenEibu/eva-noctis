@@ -1,0 +1,27 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Regenerate, test, package and check the generated files
+        run: bash scripts/build_all.sh --check
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: The VSIX ships the same files as the official vsce
+        run: bash scripts/check_vsce.sh
+      - name: Shellcheck the installer and scripts
+        run: shellcheck -S warning terminals/install.sh scripts/*.sh
+      - name: Install terminals to load the themes with the real applications
+        run: sudo apt-get update && sudo apt-get install -y tmux kitty foot x11-xserver-utils
+      - name: Load the themes (tools that are not installed are skipped)
+        run: bash scripts/smoke_terminals.sh

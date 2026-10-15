@@ -1,0 +1,17 @@
+// Noctis (EVA Mark.06 High Contrast)
+// EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+themes {
+    noctis-eva-mark06-hc {
+        fg "#000000"
+        bg "#ffffff"
+        black "#2a2d40"
+        red "#af1030"
+        green "#0b653a"
+        yellow "#943d00"
+        blue "#284acd"
+        magenta "#7d10d5"
+        orange "#6a3df0"
+        cyan "#066174"
+        white "#4e5677"
+    }
+}

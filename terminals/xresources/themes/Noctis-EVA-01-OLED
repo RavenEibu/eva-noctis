@@ -1,0 +1,21 @@
+! Noctis (EVA-01 OLED)
+! EVA Noctis (MIT, RavenEibu), based on the Noctis theme family (MIT, Liviu Schera)
+*.foreground: #e4dcf5
+*.background: #000000
+*.cursorColor: #39ff14
+*.color0: #341e66
+*.color1: #ff2d55
+*.color2: #39ff14
+*.color3: #ff6a00
+*.color4: #7b2cff
+*.color5: #ff4fd8
+*.color6: #2ff0d0
+*.color7: #d8ccf5
+*.color8: #614ca0
+*.color9: #ff6b86
+*.color10: #7dff5c
+*.color11: #ff9440
+*.color12: #a880ff
+*.color13: #ff85e6
+*.color14: #7bf7e2
+*.color15: #ffffff
