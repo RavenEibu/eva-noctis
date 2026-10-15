@@ -6,7 +6,7 @@ Everything is generated from `scripts/palettes.toml`; do not edit files under `t
 bash scripts/build_all.sh --check   # clone the pinned Noctis base, regenerate, test, package, fail if outputs are stale
 bash scripts/smoke_terminals.sh     # load the themes with whichever terminals you have installed
 bash scripts/check_vsce.sh          # the VSIX ships what `vsce package` would ship (needs node)
-python3 scripts/accessibility.py    # ANSI colors that look alike
+python3 scripts/accessibility.py    # ANSI colors that look alike; add --write to refresh the color-vision table in the README
 ```
 
 ## Changing or adding a palette

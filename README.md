@@ -180,6 +180,50 @@ All of them are generated from the same palettes and checked against the VS Code
 
 Theme file names follow the pattern `Noctis-EVA-01`, `Noctis-EVA-01-Berserk`, `Noctis-MAGI`, `Noctis-NERV-HC`, and so on.
 
+## Color vision deficiency
+
+Every theme keeps the same text contrast for everyone, but color blindness changes which *colors* can be told apart (for example blue from violet, or red from green in `git diff`). The table rates each theme from simulated color vision: ✅ recommended, ⚠️ use with care, ❌ not recommended (some colors that carry meaning become nearly indistinguishable). How it is measured, the numbers and the colors that collide are in [docs/color-vision.md](docs/color-vision.md).
+
+<!-- cvd:start -->
+| Theme | Protanopia | Deuteranopia | Tritanopia |
+| --- | :---: | :---: | :---: |
+| EVA-01 | ✅ | ⚠️ | ✅ |
+| EVA-02 | ✅ | ⚠️ | ❌ |
+| EVA-03 | ✅ | ❌ | ❌ |
+| EVA-08 | ✅ | ✅ | ⚠️ |
+| EVA-13 | ❌ | ✅ | ⚠️ |
+| EVA-00 | ❌ | ❌ | ⚠️ |
+| EVA Mark.06 | ⚠️ | ❌ | ⚠️ |
+| MAGI | ✅ | ❌ | ⚠️ |
+| NERV | ⚠️ | ❌ | ⚠️ |
+| SEELE | ❌ | ⚠️ | ⚠️ |
+| A.T. Field | ⚠️ | ❌ | ⚠️ |
+| Instrumentality | ⚠️ | ❌ | ⚠️ |
+| Terminal Dogma | ⚠️ | ❌ | ⚠️ |
+| Ramiel | ⚠️ | ❌ | ⚠️ |
+| Sachiel | ⚠️ | ⚠️ | ⚠️ |
+| EVA-01 Berserk | ✅ | ✅ | ⚠️ |
+| EVA-01 Light | ❌ | ❌ | ⚠️ |
+| EVA-02 Light | ⚠️ | ❌ | ✅ |
+| EVA-08 Light | ❌ | ❌ | ❌ |
+| Geofront | ❌ | ❌ | ⚠️ |
+| Tabris | ❌ | ❌ | ⚠️ |
+| NERV High Contrast | ❌ | ❌ | ⚠️ |
+| EVA Mark.06 High Contrast | ⚠️ | ❌ | ⚠️ |
+| EVA-01 OLED | ✅ | ⚠️ | ✅ |
+| MAGI OLED | ✅ | ❌ | ⚠️ |
+| EVA-02 OLED | ✅ | ⚠️ | ❌ |
+| EVA-00 OLED | ❌ | ❌ | ✅ |
+| Lilith OLED | ❌ | ❌ | ✅ |
+
+Recommended per type:
+- **Protanopia**: EVA-01, EVA-02, EVA-03, EVA-08, MAGI, EVA-01 Berserk, EVA-01 OLED, MAGI OLED, EVA-02 OLED.
+- **Deuteranopia**: EVA-08, EVA-13, EVA-01 Berserk.
+- **Tritanopia**: EVA-01, EVA-02 Light, EVA-01 OLED, EVA-00 OLED, Lilith OLED.
+<!-- cvd:end -->
+
+No theme separates its colors for achromatopsia (no color at all); there the contrast contract and the two high contrast themes are the best option. The ratings are informative and are regenerated from the palettes (`python3 scripts/accessibility.py --write`).
+
 ## Stability and support
 
 From 1.0 the public surface is: the theme names (`Noctis (EVA-01)`, ...), the terminal theme file names (`Noctis-EVA-01`, ...), the `install.sh` / `install.ps1` flags and the `EVA_NOCTIS_*` variables. Renaming or removing any of them is a major version; adding a theme or format is a minor one; color tweaks and fixes are patches.

@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.9.1
+- Color vision deficiency guide: every theme is rated ✅ recommended / ⚠️ use with care / ❌ not recommended for protanopia, deuteranopia and tritanopia (simulated colors, closest terminal-text pair, red vs green and closest syntax pair). The table is in the README and the numbers, thresholds and colliding colors in `docs/color-vision.md`; both are regenerated from the palettes (`python3 scripts/accessibility.py --write`) and a test fails if they are stale. No colors changed.
+
 ## 0.9.0
 - ANSI black is a readable dark gray (at least 1.5:1) on dark themes and ANSI white a neutral gray (3.5:1, bright white 3:1) on light themes; before they were close to invisible (about 1.1:1). `scripts/accessibility.py` reports ANSI colors that look alike (some themes confuse blue and violet with deuteranopia).
 - `install.sh --dry-run`, and `EVA_NOCTIS_SHA256` to verify the downloaded archive.

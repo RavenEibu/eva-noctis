@@ -6,3 +6,5 @@ scripts/**
 tests/**
 .gitignore
 *.vsix
+docs/**
+CONTRIBUTING.md
