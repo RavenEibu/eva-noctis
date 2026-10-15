@@ -26,13 +26,13 @@ if command -v zellij >/dev/null; then
   note zellij "$([ $bad = 0 ] && echo ok || echo FAILED)"; fail=$((fail + bad))
 else note zellij skipped; fi
 
-if command -v xrdb >/dev/null; then
+if command -v xrdb >/dev/null && [ -n "${DISPLAY:-}" ]; then
   bad=0
   for f in terminals/xresources/themes/Noctis-*; do
     [ "$(xrdb -n -merge "$f" 2>&1 | grep -c '^\*\.color')" = 16 ] || bad=1
   done
   note xrdb "$([ $bad = 0 ] && echo ok || echo FAILED)"; fail=$((fail + bad))
-else note xrdb skipped; fi
+else note xrdb "skipped (needs xrdb and an X display)"; fi
 
 if command -v ghostty >/dev/null; then
   bad=0
@@ -42,7 +42,8 @@ if command -v ghostty >/dev/null; then
   note ghostty "$([ $bad = 0 ] && echo ok || echo FAILED)"; fail=$((fail + bad))
 else note ghostty skipped; fi
 
-if command -v foot >/dev/null; then
+foot_minor="$(foot --version 2>/dev/null | grep -o '[0-9]*\.[0-9]*' | head -1 | cut -d. -f2)"
+if command -v foot >/dev/null && [ "$(foot --version | grep -o '[0-9]*\.[0-9]*' | head -1 | cut -d. -f1)" = 1 ] && [ "${foot_minor:-0}" -ge 24 ]; then
   bad=0
   for f in terminals/foot/themes/*.ini; do
     printf 'include=%s\n' "$PWD/$f" > "$tmp/foot.ini"
@@ -50,7 +51,7 @@ if command -v foot >/dev/null; then
     echo "$out" | grep -qiE 'warn|err|invalid|deprecat' && bad=1
   done
   note foot "$([ $bad = 0 ] && echo ok || echo FAILED)"; fail=$((fail + bad))
-else note foot skipped; fi
+else note foot "skipped (needs foot 1.24+)"; fi
 
 if command -v kitty >/dev/null; then
   cat > "$tmp/kc.py" <<'PY'
@@ -63,7 +64,7 @@ for f in sys.argv[1:]:
     bad += bool(errs)
 print("kitty-bad", bad)
 PY
-  out="$(kitty +runpy "import sys; sys.argv=['x']+sys.argv[1:]; exec(open('$tmp/kc.py').read())" terminals/kitty/themes/*.conf 2>&1 | tail -1)"
+  out="$(env -u LD_LIBRARY_PATH -u PYTHONHOME -u PYTHONPATH kitty +runpy "import sys; sys.argv=['x']+sys.argv[1:]; exec(open('$tmp/kc.py').read())" terminals/kitty/themes/*.conf 2>&1 | tail -1)"
   [ "$out" = "kitty-bad 0" ] && note kitty ok || { note kitty "FAILED ($out)"; fail=$((fail + 1)); }
 else note kitty skipped; fi
 
